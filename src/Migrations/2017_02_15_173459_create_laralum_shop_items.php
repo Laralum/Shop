@@ -20,7 +20,7 @@ class CreateLaralumShopItems extends Migration
                 $table->text('description');
                 $table->integer('price');
                 $table->integer('units')->nullable();
-                $table->integer('category_id');
+                $table->integer('category_id')->nullable();
                 $table->timestamps();
             });
         }
