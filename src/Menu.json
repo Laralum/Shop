@@ -1,0 +1,8 @@
+{
+    "items": [
+        {
+            "trans": "laralum_shop::general.title",
+            "route": "laralum::shop.index"
+        }
+    ]
+}
