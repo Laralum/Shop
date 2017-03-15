@@ -8,7 +8,7 @@ class Item extends Model
 {
     public $table = 'laralum_shop_items';
     public $fillable = [
-        'name', 'description', 'price', 'units', 'category_id'
+        'name', 'description', 'price', 'stock', 'category_id'
     ];
 
     /**
@@ -38,6 +38,6 @@ class Item extends Model
       */
      public function available()
      {
-         return $this->units !== 0;
+         return $this->stock !== 0;
      }
 }

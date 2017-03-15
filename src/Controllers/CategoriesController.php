@@ -16,7 +16,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('laralum_shop::create');
+        return view('laralum_shop::category.create');
     }
 
     /**
@@ -24,7 +24,7 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
         $this->validate([
             'name' => 'required|unique:laralum_shop_categories,name',
@@ -45,7 +45,7 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('laralum_shop::update', ['category' => $category]);
+        return view('laralum_shop::category.update', ['category' => $category]);
     }
 
     /**
@@ -54,7 +54,7 @@ class CategoriesController extends Controller
      * @param Laralum\Shop\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Category $category)
+    public function update(Request $request, Category $category)
     {
         $this->validate([
             'name' => [
@@ -76,7 +76,7 @@ class CategoriesController extends Controller
      * @param Laralum\Shop\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request, Category $category)
     {
         $category->items->each(function($item) {
             $item->update(['category_id' => 0]);

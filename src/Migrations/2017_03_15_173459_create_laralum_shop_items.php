@@ -18,8 +18,8 @@ class CreateLaralumShopItems extends Migration
                 $table->increments('id');
                 $table->string('name');
                 $table->text('description');
-                $table->integer('price');
-                $table->integer('units')->nullable();
+                $table->decimal('price', 7, 2);
+                $table->integer('stock')->nullable();
                 $table->integer('category_id');
                 $table->timestamps();
             });

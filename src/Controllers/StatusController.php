@@ -22,9 +22,10 @@ class StatusController extends Controller
     /**
      * Create a status.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
         $this->validate([
             'name' => 'required|unique:laralum_shop_status,name',
@@ -45,16 +46,17 @@ class StatusController extends Controller
      */
     public function edit(Status $status)
     {
-        return view('laralum_shop::status.update', ['category' => $category]);
+        return view('laralum_shop::status.update', ['status' => $status]);
     }
 
     /**
      * Update a status.
      *
+     * @param \Illuminate\Http\Request $request
      * @param Laralum\Shop\Models\Status $status
      * @return \Illuminate\Http\Response
      */
-    public function update(Status $status)
+    public function update(Request $request, Status $status)
     {
         $this->validate([
             'name' => [
@@ -73,10 +75,11 @@ class StatusController extends Controller
     /**
      * Delete a status.
      *
+     * @param \Illuminate\Http\Request $request
      * @param Laralum\Shop\Models\Status $status
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Status $status)
+    public function destroy(Request $request, Status $status)
     {
         $status->orders->each(function($order) {
             $order->update(['status_id' => 0]);

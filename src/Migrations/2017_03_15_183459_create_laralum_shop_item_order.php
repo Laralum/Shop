@@ -19,6 +19,7 @@ class CreateLaralumShopItemOrder extends Migration
                 $table->integer('order_id');
                 $table->integer('item_id');
                 $table->integer('units');
+                $table->text('item_on_buy');
                 $table->timestamps();
             });
         }
