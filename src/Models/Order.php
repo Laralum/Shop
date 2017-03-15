@@ -24,6 +24,12 @@ class Order extends Model
      */
     public function status()
     {
+        if (!$this->status_id) {
+            $status = new Status;
+            $status->name = __('laralum_shop::status.unknown');
+            return $status;
+        }
+
         return $this->belongsTo(Status::class);
     }
 }

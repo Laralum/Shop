@@ -8,8 +8,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'created'           => 'Category Created',
-    'updated'           => 'Category Updated',
-    'deleted'           => 'Category Deleted',
-    'uncategorized'     => 'Uncategorized',
+    'created'           => 'Status Created',
+    'updated'           => 'Status Updated',
+    'deleted'           => 'Status Deleted',
+    'unknown'           => 'Unknown',
 ];

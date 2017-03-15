@@ -6,5 +6,5 @@ Route::group([
         'namespace' => 'Laralum\Shop\Controllers',
         'as' => 'laralum::'
     ], function () {
-        Route::get('shop', 'CategoriesController@index')->name('shop.index');
+        Route::get('shop', 'ShopController@index')->name('shop.index');
 });

@@ -10,16 +10,6 @@ use Laralum\Shop\Models\Category;
 class CategoriesController extends Controller
 {
     /**
-     * Display the categories.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('laralum_shop::index', ['categories' => Category::all()]);
-    }
-
-    /**
      * Shows the create form to create a category.
      *
      * @return \Illuminate\Http\Response
@@ -88,7 +78,9 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        // Needs to delete categories from all it's items.
+        $category->items->each(function($item) {
+            $item->update(['category_id' => 0]);
+        });
 
         $category->delete();
 
