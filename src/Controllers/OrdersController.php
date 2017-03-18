@@ -6,17 +6,31 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Laralum\Shop\Models\Item;
+use Laralum\Shop\Models\Order;
+use Laralum\Shop\Models\User;
+use Auth;
 
-class ItemsController extends Controller
+class OrdersController extends Controller
 {
     /**
-     * Shows the create form to create an item.
+     * Show all the user orders.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function index()
     {
-        return view('laralum_shop::item.create');
+        return view('laralum_shop::shop.orders', ['orders' => User::findOrFail(Auth::id())->orders]);
+    }
+
+    /**
+     * Show the order details.
+     *
+     * @param \Laralum\Shop\Models\Order $order
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Order $order)
+    {
+        return view('laralum_shop::shop.order', ['order' => $order]);
     }
 
     /**

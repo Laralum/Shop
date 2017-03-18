@@ -40,4 +40,16 @@ class Item extends Model
      {
          return $this->stock !== 0;
      }
+
+     public function showStock()
+     {
+         if (self::available()) {
+             if ($this->stock) {
+                 return __('laralum_shop::items.x_available', ['x' => $this->stock]);
+             }
+             return __('laralum_shop::items.available');
+         }
+
+         return __('laralum_shop::items.out_of_stock');
+     }
 }
