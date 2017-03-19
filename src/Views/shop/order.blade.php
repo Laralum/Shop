@@ -14,18 +14,75 @@ $order - It stores the selected order as the model instance.
     <a href="{{ route('laralum_public::shop.index') }}">All Products</a>
     <a href="{{ route('laralum_public::shop.cart') }}">Shopping Card</a>
     <a href="{{ route('laralum_public::shop.orders') }}">My Orders</a>
-    <h1>Order #{{ $order->id }}</h1>
-    <ul>
-        @foreach($order->items as $item)
-            <li>
-                {{ $item->name }} - {{ $item->pivot->units }}
-                bought for {{ unserialize($item->pivot->item_on_buy)['price'] }} each
-                with a total price of:
-                <b>{{ bcmul(unserialize($item->pivot->item_on_buy)['price'], $item->pivot->units, 2) }}</b>
-            </li>
-        @endforeach
-    </ul>
-    Total order price: <b>{{ $order->price() }}</b>
-
+    <div id="order">
+        <h1>Order #{{ $order->id }}</h1>
+        <table style="width: 100%">
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+            </tr>
+            @foreach($order->items as $item)
+                <tr>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->pivot->units }}</td>
+                    <td><span class="money">{{ unserialize($item->pivot->item_on_buy)['price'] }}</span></td>
+                    <td><span class="money">{{ bcmul(unserialize($item->pivot->item_on_buy)['price'], $item->pivot->units, 2) }}</span></td>
+                </tr>
+            @endforeach
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><b>Total</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><span class="money">{{ $order->price() }}</span></td>
+            </tr>
+        </table>
+        <br />
+        <p>
+            Total order price: <b class="money">{{ $order->price() }}</b>
+        </p>
+    </div>
+    <p>
+        <form action="{{ route('laralum_public::pdf.download', ['name' => 'Order_'.$order->id]) }}" method="POST" id="downloadInvoice">
+            {{ csrf_field() }}
+            <input type="hidden" name="text" id="text" value="asd"/>
+            <input type="submit" value="Download Invoice" />
+        </form>
+    </p>
+    <script src="https://cdn.bootcss.com/currencyformatter.js/1.0.4/currencyFormatter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+    <script>
+        OSREC.CurrencyFormatter.formatAll({
+            selector: '.money',
+            currency: 'EUR'
+        });
+        $('.money').each(function() {
+            $(this).html('<i>'+$(this).html()+'</i>');
+        });
+        $('table').each(function() {
+            $(this).css({'border': '1px solid black', 'border-collapse': 'collapse'});
+        });
+        $('th').each(function() {
+            $(this).css({'border': '1px solid black', 'border-collapse': 'collapse', 'padding': '5px'});
+        });
+        $('td').each(function() {
+            $(this).css({'padding': '5px'});
+            console.log($(this).html());
+            if($(this).text()) {
+                $(this).css({'border': '1px solid black', 'border-collapse': 'collapse'});
+            }
+        });
+        $('#downloadInvoice').submit(function() {
+            var content = $('#order').html();
+            $('#text').attr('value', content);
+        });
+    </script>
 </body>
 </html>

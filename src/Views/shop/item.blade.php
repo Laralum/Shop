@@ -23,7 +23,7 @@ $settings - It stores the application settings of the laralum settings module.
         </p>
     @endif
     <p>
-        Price: <b>{{ $item->price }}</b>
+        Price: <b class="money">{{ $item->price }}</b>
         Stock: <b>{{ $item->showStock() }}</b>
     </p>
     <p>{{ $item->description }}</p>
@@ -41,5 +41,12 @@ $settings - It stores the application settings of the laralum settings module.
         @endif
     </p>
 
+    <script src="https://cdn.bootcss.com/currencyformatter.js/1.0.4/currencyFormatter.min.js"></script>
+    <script>
+        OSREC.CurrencyFormatter.formatAll({
+            selector: '.money',
+            currency: 'EUR'
+        });
+    </script>
 </body>
 </html>

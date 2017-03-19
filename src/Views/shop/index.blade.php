@@ -22,12 +22,19 @@ $items - It stores all the items (may be filtered depending if a category has be
     @foreach ($items as $item)
         <h3>{{ $item->name }}</h3>
         <p>
-            Price: <b>{{ $item->price }}</b>
+            Price: <b class="money">{{ $item->price }}</b>
             Stock: <b>{{ $item->showStock() }}</b>
         </p>
         <p>{{ $item->description }}</p>
         <a href="{{ route('laralum_public::shop.item', ['item' => $item->id]) }}">View More</a>
     @endforeach
 
+    <script src="https://cdn.bootcss.com/currencyformatter.js/1.0.4/currencyFormatter.min.js"></script>
+    <script>
+        OSREC.CurrencyFormatter.formatAll({
+            selector: '.money',
+            currency: 'EUR'
+        });
+    </script>
 </body>
 </html>

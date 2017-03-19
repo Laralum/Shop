@@ -86,8 +86,8 @@ class ShopController extends Controller
      */
     public function addItem(Request $request, Item $item)
     {
-        foreach (session('laralum_shop_cart') as $i) {
-            if ($i['amount'] >= $item->stock) {
+        foreach (session('laralum_shop_cart', []) as $i) {
+            if ($item->stock && $i['amount'] >= $item->stock) {
                 return redirect()->back()->with('success', __('laralum_shop::cart.stock_error'));
             }
         }

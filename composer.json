@@ -3,7 +3,8 @@
     "description": "Shop module for laralum",
     "require": {
 		"laralum/laralum": "dev-master",
-        "laralum/payments": "dev-master"
+        "laralum/payments": "dev-master",
+        "laralum/PDF": "dev-master"
 	},
     "license": "MIT",
     "authors": [

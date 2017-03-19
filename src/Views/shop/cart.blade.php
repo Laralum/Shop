@@ -38,7 +38,7 @@ $settings - It stores the application settings of the laralum settings module.
     @foreach($items as $item)
         <h3>{{ $item['item']->name }}</h3>
         <p>
-            Price: {{ $item['item']->price }} * {{ $item['amount'] }} = <b>{{ $item['price'] }}</b>
+            Price: <span class="money">{{ $item['item']->price }}</span> * {{ $item['amount'] }} = <b class="money">{{ $item['price'] }}</b>
         </p>
         <p>
             <form action="{{ route('laralum_public::shop.cart.remove', ['item' => $item['item']->id]) }}" method="POST">
@@ -51,7 +51,7 @@ $settings - It stores the application settings of the laralum settings module.
         @if(count($items) > 0)
             <hr />
             <p>
-                Total to pay: <b>{{ $items->sum('price') }}</b>
+                Total to pay: <b class="money">{{ $items->sum('price') }}</b>
             </p>
             @if(Auth::check())
                 <form action="{{ route('laralum_public::shop.cart.checkout') }}" method="POST">
@@ -74,6 +74,12 @@ $settings - It stores the application settings of the laralum settings module.
             @endif
         @endif
     </p>
-
+    <script src="https://cdn.bootcss.com/currencyformatter.js/1.0.4/currencyFormatter.min.js"></script>
+    <script>
+        OSREC.CurrencyFormatter.formatAll({
+            selector: '.money',
+            currency: 'EUR'
+        });
+    </script>
 </body>
 </html>
