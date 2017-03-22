@@ -16,7 +16,6 @@ $items - It stores all the items (may be filtered depending if a category has be
     <a href="{{ route('laralum_public::shop.orders') }}">My Orders</a>
     <h1>Shop Example</h1>
     <p>Simple shop demo page.</p>
-    <br />
     <h2>Shop Items:</h2>
     {{-- Loop over the shop items, they are already filtered by a category if specified --}}
     @foreach ($items as $item)

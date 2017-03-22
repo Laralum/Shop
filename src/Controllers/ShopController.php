@@ -13,7 +13,10 @@ use Laralum\Settings\Models\Settings;
 use Laralum\Payments\Models\Settings as PaymentsSettings;
 use Stripe\Stripe;
 use Stripe\Charge;
+use Laralum\Users\Models\User;
+use Laralum\Shop\Notifications\ReciptNotification;
 use Auth;
+
 
 class ShopController extends Controller
 {
@@ -160,6 +163,7 @@ class ShopController extends Controller
 
         foreach (collect(self::currentItems()) as $item) {
             if ($item['item']->stock && $item['amount'] > $item['item']->stock) {
+                session(['laralum_shop_cart' => []]);
                 return redirect()->route('laralum_public::shop.orders')->with('error', __('laralum_shop::shop.stock_error'));
             }
         }
@@ -176,6 +180,8 @@ class ShopController extends Controller
                 ]
             ];
         }));
+
+        User::findOrFail(Auth::id())->notify(new ReciptNotification($order));
 
         try {
             Charge::create([
