@@ -14,8 +14,8 @@ Route::group([
         Route::post('/cart/add/{item}', 'ShopController@addItem')->name('shop.cart.add');
         Route::post('/cart/remove/{item}', 'ShopController@removeItem')->name('shop.cart.remove');
         Route::get('/item/{item}', 'ShopController@item')->name('shop.item');
-        Route::get('/orders', 'OrdersController@index')->name('shop.orders')->middleware('auth');
-        Route::get('/orders/{order}', 'OrdersController@show')->name('shop.order')->middleware('auth');
+        Route::get('/orders', 'ShopController@orders')->name('shop.orders')->middleware('auth');
+        Route::get('/orders/{order}', 'ShopController@order')->name('shop.order')->middleware('auth');
         Route::get('/{category?}', 'ShopController@index')->name('shop.index');
 });
 
@@ -26,7 +26,9 @@ Route::group([
         'middleware' => ['web', 'laralum.base', 'laralum.auth'],
         'prefix' => config('laralum.settings.base_url'),
         'namespace' => 'Laralum\Shop\Controllers',
-        'as' => 'laralum::'
+        'as' => 'laralum::shop.'
     ], function () {
-        Route::get('shop', 'ShopController@index')->name('shop.index');
+        Route::get('shop', 'ItemsController@index')->name('index');
+        Route::get('shop/category/{category}', 'ItemsController@category')->name('category.index');
+        Route::resource('shop/item', 'ItemsController', ['except' => ['index']]);
 });

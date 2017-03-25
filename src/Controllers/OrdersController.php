@@ -13,13 +13,13 @@ use Auth;
 class OrdersController extends Controller
 {
     /**
-     * Show all the user orders.
+     * Show all the orders.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('laralum_shop::shop.orders', ['orders' => User::findOrFail(Auth::id())->orders]);
+        return view('laralum_shop::order.index', ['orders' => Order::all()]);
     }
 
     /**

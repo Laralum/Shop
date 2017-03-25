@@ -6,9 +6,43 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Laralum\Shop\Models\Item;
+use Laralum\Shop\Models\Category;
 
 class ItemsController extends Controller
 {
+
+    /**
+     * Shows all the items.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('laralum_shop::item.index', ['items' => Item::all()]);
+    }
+
+    /**
+     * Shows all the items in a specific category.
+     *
+     * @param \Laralum\Shop\Models\Category $category
+     * @return \Illuminate\Http\Response
+     */
+    public function category(Category $category)
+    {
+        return view('laralum_shop::item.index', ['items' => $category->items]);
+    }
+
+    /**
+     * Shows the item details.
+     *
+     * @param \Laralum\Shop\Models\Item $item
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Item $item)
+    {
+        return view('laralum_shop::item.show', ['item' => $item]);
+    }
+
     /**
      * Shows the create form to create an item.
      *

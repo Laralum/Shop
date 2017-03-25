@@ -65,6 +65,29 @@ class ShopController extends Controller
     }
 
     /**
+     * Show all the user orders.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function orders()
+    {
+        return view('laralum_shop::shop.orders', ['orders' => User::findOrFail(Auth::id())->orders]);
+    }
+
+    /**
+     * Show the order details.
+     *
+     * @param \Laralum\Shop\Models\Order $order
+     * @return \Illuminate\Http\Response
+     */
+    public function order(Order $order)
+    {
+        $this->authoritze('publicView', $order);
+
+        return view('laralum_shop::shop.order', ['order' => $order]);
+    }
+
+    /**
      * Shows the current cart.
      *
      * @return \Illuminate\Http\Response

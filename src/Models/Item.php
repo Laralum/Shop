@@ -18,7 +18,7 @@ class Item extends Model
      {
          if (!$this->category_id) {
              $category = new Category;
-             $category->name = __('laralum_shop::category.uncategorized');
+             $category->name = __('laralum_shop::categories.uncategorized');
              return $category;
          }
 

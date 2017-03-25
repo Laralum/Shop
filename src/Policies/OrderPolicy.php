@@ -23,14 +23,19 @@ class OrderPolicy
     }
 
     /**
-     * Determine if the current user can access the payments module.
+     * Determine if the current user can view the order.
      *
      * @param  mixed  $user
+     * @param  mixed  $order
      * @return bool
      */
-    public function access($user, $order)
+    public function publicView($user, $order)
     {
-        return User::findOrFail($user->id)->hasPermission('laralum::shop.order');
+        if ($order->user->id != $user->id) {
+            return false;
+        }
+
+        return true;
     }
 
 }
