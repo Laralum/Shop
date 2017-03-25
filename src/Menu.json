@@ -3,6 +3,10 @@
         {
             "trans": "laralum_shop::items.title",
             "route": "laralum::shop.index"
+        },
+        {
+            "trans": "laralum_shop::items.create",
+            "route": "laralum::shop.item.create"
         }
     ]
 }

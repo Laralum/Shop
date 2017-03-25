@@ -50,7 +50,7 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        return view('laralum_shop::item.create');
+        return view('laralum_shop::item.create', ['categories' => Category::all()]);
     }
 
     /**
@@ -61,7 +61,7 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate([
+        $this->validate($request, [
             'name' => 'required|min:5',
             'description' => 'required|min:15',
             'price' => 'required|numeric|min:0',
@@ -72,6 +72,7 @@ class ItemsController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'category_id' => $request->category ? $request->category : 0,
             'stock' => ($request->stock || $request->stock === 0) ? $request->stock : null,
         ]);
 
