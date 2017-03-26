@@ -10,6 +10,16 @@ use Laralum\Shop\Models\Category;
 class CategoriesController extends Controller
 {
     /**
+     * Shows all the categories.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('laralum_shop::category.index', ['categories' => Category::all()]);
+    }
+
+    /**
      * Shows the create form to create a category.
      *
      * @return \Illuminate\Http\Response

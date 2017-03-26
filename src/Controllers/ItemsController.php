@@ -61,11 +61,13 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
+        #dd($request->category);
         $this->validate($request, [
             'name' => 'required|min:5',
             'description' => 'required|min:15',
             'price' => 'required|numeric|min:0',
-            'stock' => 'integer',
+            'category' => $request->category ? 'required|exists:laralum_shop_categories,id' : 'required',
+            'stock' => ($request->stock || $request->stock === 0) ? 'integer' : '',
         ]);
 
         Item::create([
@@ -114,6 +116,20 @@ class ItemsController extends Controller
         ]);
 
         return redirect()->route('laralum::shop.index')->with('success', __('laralum_shop::items.updated'));
+    }
+
+    /**
+     * Show the delete confirmation page to delete an item.
+     *
+     * @param Laralum\Shop\Models\Item $item
+     * @return \Illuminate\Http\Response
+     */
+    public function confirmDelete(Item $item)
+    {
+        return view('laralum::pages.confirmation', [
+            'method' => 'DELETE',
+            'action' => route('laralum::shop.item.destroy', ['item' => $item]),
+        ]);
     }
 
     /**

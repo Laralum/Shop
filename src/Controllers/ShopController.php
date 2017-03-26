@@ -14,6 +14,7 @@ use Laralum\Payments\Models\Settings as PaymentsSettings;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Laralum\Users\Models\User;
+use Laralum\Shop\Models\User as ShopUser;
 use Laralum\Shop\Notifications\ReciptNotification;
 use Auth;
 
@@ -71,7 +72,7 @@ class ShopController extends Controller
      */
     public function orders()
     {
-        return view('laralum_shop::shop.orders', ['orders' => User::findOrFail(Auth::id())->orders]);
+        return view('laralum_shop::shop.orders', ['orders' => ShopUser::findOrFail(Auth::id())->orders]);
     }
 
     /**
@@ -82,7 +83,7 @@ class ShopController extends Controller
      */
     public function order(Order $order)
     {
-        $this->authoritze('publicView', $order);
+        $this->authorize('publicView', $order);
 
         return view('laralum_shop::shop.order', ['order' => $order]);
     }
@@ -207,12 +208,14 @@ class ShopController extends Controller
         User::findOrFail(Auth::id())->notify(new ReciptNotification($order));
 
         try {
-            Charge::create([
-                "amount" => self::currentItems()->sum('price') * 100,
-                "currency" => "eur",
-                "source" => $request->stripeToken,
-                "description" => "Charge for order: #$order->id",
-            ]);
+            if ($order->price() > 0) {
+                Charge::create([
+                    "amount" => $order->price() * 100,
+                    "currency" => "eur",
+                    "source" => $request->stripeToken,
+                    "description" => "Charge for order: #$order->id",
+                ]);
+            }
             foreach ($order->items as $item) {
                 if ($item->stock) {
                     $item->update(['stock' => $item->stock - $item->pivot->units]);

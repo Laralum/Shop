@@ -29,6 +29,10 @@ Route::group([
         'as' => 'laralum::shop.'
     ], function () {
         Route::get('shop', 'ItemsController@index')->name('index');
-        Route::get('shop/category/{category}', 'ItemsController@category')->name('category.index');
+        Route::resource('shop/category', 'CategoriesController');
+        Route::resource('shop/status', 'StatusController');
+        Route::resource('shop/order', 'OrdersController', ['only' => ['index', 'show']]);
+        Route::get('shop/item/{item}/delete', 'ItemsController@confirmDelete')->name('item.delete');
         Route::resource('shop/item', 'ItemsController', ['except' => ['index']]);
+        Route::get('shop/statistics', 'StatisticsController@index')->name('statistics.index');
 });

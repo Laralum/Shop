@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>{{ $item->id }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->price }}</td>
+                                            <td><span class="money">{{ $item->price }}</span></td>
                                             <td>{{ $item->showStock() }}</td>
                                             <td>{{ $item->category()->name }}</td>
                                             <td class="uk-table-shrink">
@@ -42,7 +42,7 @@
                                                     <a href="{{ route('laralum::shop.item.show', ['item' => $item->id]) }}" class="uk-button uk-button-small uk-button-default">
                                                         @lang('laralum_shop::items.show')
                                                     </a>
-                                                    <a href="{{ route('laralum::shop.item.destroy', ['item' => $item->id]) }}" class="uk-button uk-button-small uk-button-danger">
+                                                    <a href="{{ route('laralum::shop.item.delete', ['item' => $item->id]) }}" class="uk-button uk-button-small uk-button-danger">
                                                         @lang('laralum_shop::items.delete')
                                                     </a>
                                                 </div>
@@ -68,4 +68,13 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+<script src="https://cdn.bootcss.com/currencyformatter.js/1.0.4/currencyFormatter.min.js"></script>
+<script>
+    OSREC.CurrencyFormatter.formatAll({
+        selector: '.money',
+        currency: 'EUR'
+    });
+</script>
 @endsection

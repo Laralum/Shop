@@ -4,10 +4,9 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | General Shop Language Lines
+    | Shop Statistics Language Lines
     |--------------------------------------------------------------------------
     */
 
-    'home'              => 'Home',
-    'markdown_accepted' => "You're free to use markdown in the item description",
+    'title'         => 'Statistics',
 ];

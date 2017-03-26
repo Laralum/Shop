@@ -1,10 +1,11 @@
 @extends('laralum::layouts.master')
 @section('icon', 'ion-plus-round')
-@section('title', __('laralum_shop::items.title'))
-@section('subtitle', __('laralum_shop::items.subtitle'))
+@section('title', __('laralum_shop::items.create'))
+@section('subtitle', __('laralum_shop::items.create_subtitle'))
 @section('breadcrumb')
     <ul class="uk-breadcrumb">
         <li><a href="{{ route('laralum::index') }}">@lang('laralum_shop::general.home')</a></li>
+        <li><a href="{{ route('laralum::shop.index') }}">@lang('laralum_shop::items.title')</a></li>
         <li><span href="">@lang('laralum_shop::items.create')</span></li>
     </ul>
 @endsection
@@ -22,25 +23,24 @@
                                     <div class="uk-width-1-1@l uk-width-3-5@xl">
                                         <label class="uk-form-label">@lang('laralum_shop::items.name')</label>
                                         <div class="uk-form-controls">
-                                            <input value="{{ old('name') }}" name="name" class="uk-input" type="text" placeholder="@lang('laralum_shop::items.name_ph')">
+                                            <input required value="{{ old('name') }}" name="name" class="uk-input" type="text" placeholder="@lang('laralum_shop::items.name_ph')">
                                         </div>
                                     </div>
                                     <div class="uk-width-1-1@l uk-width-2-5@xl">
                                         <label class="uk-form-label">@lang('laralum_shop::items.price')</label>
                                         <div class="uk-form-controls">
-                                            <input value="{{ old('price') }}" name="price" class="uk-input" type="number" min="0" step="0.01" placeholder="@lang('laralum_shop::items.price_ph')">
+                                            <input required value="{{ old('price') }}" name="price" class="uk-input" type="number" min="0" step="0.01" placeholder="@lang('laralum_shop::items.price_ph')">
                                         </div>
                                     </div>
                                     <div class="uk-width-1-1@l uk-width-3-5@xl">
                                         <label class="uk-form-label">@lang('laralum_shop::items.category')</label>
                                         <div class="uk-form-controls">
-                                            <select name="anti_ad_block_method" id="anti_ad_block_method" class="uk-select">
+                                            <select required name="category" class="uk-select">
                                                 <option value="0">@lang('laralum_shop::categories.uncategorized')</option>
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
-                                            <small class="uk-text-meta">@lang('laralum_shop::items.category_ph')</small>
                                         </div>
                                     </div>
                                     <div class="uk-width-1-1@l uk-width-2-5@xl">
@@ -52,7 +52,7 @@
                                     <div class="uk-width-1-1">
                                         <label class="uk-form-label">@lang('laralum_shop::items.description')</label>
                                         <div class="uk-form-controls">
-                                            <textarea name="description" rows="10" class="uk-textarea" placeholder="@lang('laralum_shop::items.description_ph')">{{ old('description') }}</textarea>
+                                            <textarea required name="description" rows="10" class="uk-textarea" placeholder="@lang('laralum_shop::items.description_ph')">{{ old('description') }}</textarea>
                                             <small class="uk-text-meta">@lang('laralum_shop::general.markdown_accepted')</small>
                                         </div>
                                     </div>

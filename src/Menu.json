@@ -7,6 +7,30 @@
         {
             "trans": "laralum_shop::items.create",
             "route": "laralum::shop.item.create"
+        },
+        {
+            "trans": "laralum_shop::categories.title",
+            "route": "laralum::shop.category.index"
+        },
+        {
+            "trans": "laralum_shop::categories.create",
+            "route": "laralum::shop.category.create"
+        },
+        {
+            "trans": "laralum_shop::orders.title",
+            "route": "laralum::shop.order.index"
+        },
+        {
+            "trans": "laralum_shop::status.title",
+            "route": "laralum::shop.status.index"
+        },
+        {
+            "trans": "laralum_shop::status.create",
+            "route": "laralum::shop.status.create"
+        },
+        {
+            "trans": "laralum_shop::statistics.title",
+            "route": "laralum::shop.statistics.index"
         }
     ]
 }

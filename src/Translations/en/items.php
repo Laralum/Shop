@@ -19,11 +19,11 @@ return [
     'description'       => 'Description',
     'description_ph'    => 'Enter the item description',
     'category'          => 'Category',
-    'category_ph'       => 'Select the item category',
     'options'           => 'Options',
     'show'              => 'Details',
     'delete'            => 'Delete',
     'create'            => 'Create Item',
+    'create_subtitle'   => 'Create a new shop item',
 
     'created'           => 'Item Created',
     'updated'           => 'Item Updated',
