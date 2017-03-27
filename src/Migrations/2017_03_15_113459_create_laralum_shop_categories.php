@@ -22,7 +22,7 @@ class CreateLaralumShopCategories extends Migration
             });
             Category::create([
                 'name' => 'Uncategorized',
-            ])
+            ]);
         }
     }
 
