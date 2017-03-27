@@ -28,6 +28,22 @@ class Item extends Model
      }
 
      /**
+      * Return the item sales.
+      */
+     public function sales()
+     {
+         return $this->orders()->where('status_id', 2)->get()->count();
+     }
+
+     /**
+      * Return the item sales.
+      */
+     public function earnings()
+     {
+         return bcmul($this->sales(), $this->price, 2);
+     }
+
+     /**
       * Return true if the item is available.
       */
      public function available()

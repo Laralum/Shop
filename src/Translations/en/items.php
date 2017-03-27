@@ -24,6 +24,12 @@ return [
     'delete'            => 'Delete',
     'create'            => 'Create Item',
     'create_subtitle'   => 'Create a new shop item',
+    'show_subtitle'     => 'View the item #:id details',
+    'item_details'      => 'Item Details',
+    'creation_date'     => 'Creation Date',
+    'updated_date'      => 'Latest Update',
+    'sales'             => 'Sales',
+    'earnings'          => 'Earnings',
 
     'created'           => 'Item Created',
     'updated'           => 'Item Updated',

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Gate;
 
 use Laralum\Shop\Models\Category;
 use Laralum\Shop\Policies\CategoryPolicy;
+use Laralum\Shop\Models\Item;
+use Laralum\Shop\Policies\ItemPolicy;
 use Laralum\Shop\Models\Order;
 use Laralum\Shop\Policies\OrderPolicy;
 
@@ -21,6 +23,7 @@ class ShopServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Category::class => CategoryPolicy::class,
+        Item::class => ItemPolicy::class,
         Order::class => OrderPolicy::class,
     ];
 
@@ -31,7 +34,7 @@ class ShopServiceProvider extends ServiceProvider
      */
     protected $permissions = [
         [
-            'name' => 'Edit Shop Categories',
+            'name' => 'Shop Categories Access',
             'slug' => 'laralum::shop.category.access',
             'desc' => "Grants access to shop categories",
         ],
@@ -49,6 +52,26 @@ class ShopServiceProvider extends ServiceProvider
             'name' => 'Delete Shop Categories',
             'slug' => 'laralum::shop.category.delete',
             'desc' => "Allows deleting shop categories",
+        ],
+        [
+            'name' => 'Shop Items Access',
+            'slug' => 'laralum::shop.item.access',
+            'desc' => "Grants access to shop items",
+        ],
+        [
+            'name' => 'Create Shop Items',
+            'slug' => 'laralum::shop.item.create',
+            'desc' => "Allows creating shop items",
+        ],
+        [
+            'name' => 'Edit Shop Items',
+            'slug' => 'laralum::shop.item.update',
+            'desc' => "Allows editing shop items",
+        ],
+        [
+            'name' => 'Delete Shop Items',
+            'slug' => 'laralum::shop.item.delete',
+            'desc' => "Allows deleting shop items",
         ],
     ];
 

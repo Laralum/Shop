@@ -50,6 +50,8 @@ class ItemsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Item::class);
+
         return view('laralum_shop::item.create', ['categories' => Category::all()]);
     }
 
@@ -61,6 +63,8 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Item::class);
+
         $this->validate($request, [
             'name' => 'required|min:5',
             'description' => 'required|min:15',
@@ -88,6 +92,8 @@ class ItemsController extends Controller
      */
     public function edit(Item $item)
     {
+        $this->authorize('update', $item);
+
         return view('laralum_shop::item.edit', ['item' => $item]);
     }
 
@@ -100,6 +106,8 @@ class ItemsController extends Controller
      */
     public function update(Request $request, Item $item)
     {
+        $this->authorize('update', $item);
+
         $this->validate([
             'name' => 'required|min:5',
             'description' => 'required|min:15',
@@ -127,6 +135,8 @@ class ItemsController extends Controller
      */
     public function confirmDelete(Item $item)
     {
+        $this->authorize('delete', $item);
+
         return view('laralum::pages.confirmation', [
             'method' => 'DELETE',
             'action' => route('laralum::shop.item.destroy', ['item' => $item]),
@@ -142,6 +152,8 @@ class ItemsController extends Controller
      */
     public function destroy(Request $request, Item $item)
     {
+        $this->authorize('delete', $item);
+
         $item->delete();
 
         return redirect()->route('laralum::shop.index')->with('success', __('laralum_shop::items.deleted'));
