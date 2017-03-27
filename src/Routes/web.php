@@ -29,7 +29,14 @@ Route::group([
         'as' => 'laralum::shop.'
     ], function () {
         Route::get('shop', 'ItemsController@index')->name('index');
-        Route::resource('shop/category', 'CategoriesController');
+
+
+        // Shop Categories
+        Route::group(['middleware' => 'can:access,Laralum\Shop\Models\Category'], function() {
+            Route::get('shop/category/{category}/delete', 'CategoriesController@confirmDelete')->name('category.delete');
+            Route::resource('shop/category', 'CategoriesController');
+        });
+
         Route::resource('shop/status', 'StatusController');
         Route::resource('shop/order', 'OrdersController', ['only' => ['index', 'show']]);
         Route::get('shop/item/{item}/delete', 'ItemsController@confirmDelete')->name('item.delete');

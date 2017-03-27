@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Laralum\Shop\Models\Category;
 
 class CreateLaralumShopCategories extends Migration
 {
@@ -19,6 +20,9 @@ class CreateLaralumShopCategories extends Migration
                 $table->string('name');
                 $table->timestamps();
             });
+            Category::create([
+                'name' => 'Uncategorized',
+            ])
         }
     }
 

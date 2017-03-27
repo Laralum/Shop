@@ -26,6 +26,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Category::class);
+
         return view('laralum_shop::category.create');
     }
 
@@ -36,7 +38,9 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate([
+        $this->authorize('create', Category::class);
+
+        $this->validate($request, [
             'name' => 'required|unique:laralum_shop_categories,name',
         ]);
 
@@ -44,29 +48,33 @@ class CategoriesController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('laralum::shop.index')->with('success', __('laralum_shop::categories.created'));
+        return redirect()->route('laralum::shop.category.index')->with('success', __('laralum_shop::categories.created'));
     }
 
     /**
      * Shows the update form to update a category.
      *
-     * @param Laralum\Shop\Models\Category $category
+     * @param \Laralum\Shop\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
     {
-        return view('laralum_shop::category.update', ['category' => $category]);
+        $this->authorize('update', $category);
+
+        return view('laralum_shop::category.edit', ['category' => $category]);
     }
 
     /**
      * Update a category.
      *
-     * @param Laralum\Shop\Models\Category $category
+     * @param \Laralum\Shop\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
     {
-        $this->validate([
+        $this->authorize('update', $category);
+
+        $this->validate($request, [
             'name' => [
                 'required',
                 Rule::unique('laralum_shop_categories')->ignore($category->id),
@@ -77,23 +85,41 @@ class CategoriesController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('laralum::shop.index')->with('success', __('laralum_shop::categories.updated'));
+        return redirect()->route('laralum::shop.category.index')->with('success', __('laralum_shop::categories.updated'));
+    }
+
+    /**
+     * Show the delete confirmation page to delete an item.
+     *
+     * @param \Laralum\Shop\Models\Item $item
+     * @return \Illuminate\Http\Response
+     */
+    public function confirmDelete(Category $category)
+    {
+        $this->authorize('delete', $category);
+
+        return view('laralum::pages.confirmation', [
+            'method' => 'DELETE',
+            'action' => route('laralum::shop.category.destroy', ['category' => $category]),
+        ]);
     }
 
     /**
      * Delete a category.
      *
-     * @param Laralum\Shop\Models\Category $category
+     * @param \Laralum\Shop\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Category $category)
     {
+        $this->authorize('delete', $category);
+
         $category->items->each(function($item) {
-            $item->update(['category_id' => 0]);
+            $item->update(['category_id' => Category::first()]);
         });
 
         $category->delete();
 
-        return redirect()->route('laralum::shop.index')->with('success', __('laralum_shop::categories.deleted'));
+        return redirect()->route('laralum::shop.category.index')->with('success', __('laralum_shop::categories.deleted'));
     }
 }

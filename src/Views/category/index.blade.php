@@ -24,6 +24,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>@lang('laralum_shop::categories.name')</th>
+                                        <th>@lang('laralum_shop::categories.options')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -31,9 +32,23 @@
                                         <tr>
                                             <td>{{ $category->id }}</td>
                                             <td>{{ $category->name }}</td>
+                                            <td class="uk-table-shrink">
+                                                <div class="uk-button-group">
+                                                    @can('delete', $category)
+                                                        <a href="{{ route('laralum::shop.category.delete', ['category' => $category->id]) }}" class="uk-button uk-button-small uk-button-danger">
+                                                            @lang('laralum_shop::categories.delete')
+                                                        </a>
+                                                    @else
+                                                        <button disabled class="uk-button uk-button-small uk-button-danger">
+                                                            @lang('laralum_shop::categories.delete')
+                                                        </button>
+                                                    @endcan
+                                                </div>
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
+                                            <td>-</td>
                                             <td>-</td>
                                             <td>-</td>
                                         </tr>

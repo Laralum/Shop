@@ -36,7 +36,7 @@
                                             <td>{{ $item->name }}</td>
                                             <td><span class="money">{{ $item->price }}</span></td>
                                             <td>{{ $item->showStock() }}</td>
-                                            <td>{{ $item->category()->name }}</td>
+                                            <td>{{ $item->category->name }}</td>
                                             <td class="uk-table-shrink">
                                                 <div class="uk-button-group">
                                                     <a href="{{ route('laralum::shop.item.show', ['item' => $item->id]) }}" class="uk-button uk-button-small uk-button-default">

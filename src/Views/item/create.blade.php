@@ -36,7 +36,6 @@
                                         <label class="uk-form-label">@lang('laralum_shop::items.category')</label>
                                         <div class="uk-form-controls">
                                             <select required name="category" class="uk-select">
-                                                <option value="0">@lang('laralum_shop::categories.uncategorized')</option>
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach

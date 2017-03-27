@@ -16,12 +16,6 @@ class Item extends Model
      */
      public function category()
      {
-         if (!$this->category_id) {
-             $category = new Category;
-             $category->name = __('laralum_shop::categories.uncategorized');
-             return $category;
-         }
-
          return $this->belongsTo(Category::class);
      }
 

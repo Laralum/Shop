@@ -61,12 +61,11 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        #dd($request->category);
         $this->validate($request, [
             'name' => 'required|min:5',
             'description' => 'required|min:15',
             'price' => 'required|numeric|min:0',
-            'category' => $request->category ? 'required|exists:laralum_shop_categories,id' : 'required',
+            'category' => 'required|exists:laralum_shop_categories,id',
             'stock' => ($request->stock || $request->stock === 0) ? 'integer' : '',
         ]);
 
@@ -74,7 +73,7 @@ class ItemsController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            'category_id' => $request->category ? $request->category : 0,
+            'category_id' => $request->category,
             'stock' => ($request->stock || $request->stock === 0) ? $request->stock : null,
         ]);
 
@@ -84,19 +83,19 @@ class ItemsController extends Controller
     /**
      * Shows the update form to update an item.
      *
-     * @param Laralum\Shop\Models\Item $item
+     * @param \Laralum\Shop\Models\Item $item
      * @return \Illuminate\Http\Response
      */
     public function edit(Item $item)
     {
-        return view('laralum_shop::item.update', ['item' => $item]);
+        return view('laralum_shop::item.edit', ['item' => $item]);
     }
 
     /**
      * Update a category.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Laralum\Shop\Models\Item $item
+     * @param \Laralum\Shop\Models\Item $item
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Item $item)
@@ -105,6 +104,7 @@ class ItemsController extends Controller
             'name' => 'required|min:5',
             'description' => 'required|min:15',
             'price' => 'required|numeric|min:0',
+            'category' => 'required|exists:laralum_shop_categories,id',
             'stock' => 'integer',
         ]);
 
@@ -112,6 +112,7 @@ class ItemsController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'category_id' => $request->category,
             'stock' => ($request->stock || $request->stock === 0) ? $request->stock : null,
         ]);
 
@@ -121,7 +122,7 @@ class ItemsController extends Controller
     /**
      * Show the delete confirmation page to delete an item.
      *
-     * @param Laralum\Shop\Models\Item $item
+     * @param \Laralum\Shop\Models\Item $item
      * @return \Illuminate\Http\Response
      */
     public function confirmDelete(Item $item)
@@ -136,7 +137,7 @@ class ItemsController extends Controller
      * Delete an item.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Laralum\Shop\Models\Item $item
+     * @param \Laralum\Shop\Models\Item $item
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Item $item)

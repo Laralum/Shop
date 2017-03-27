@@ -13,6 +13,9 @@ return [
     'create'            => 'Create Category',
     'category_list'     => 'Category list',
     'name'              => 'Name',
+    'options'           => 'Options',
+    'delete'            => 'Delete',
+    'delete_default'    => "You can't delete this category",
 
     'created'           => 'Category Created',
     'updated'           => 'Category Updated',

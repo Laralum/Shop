@@ -27,7 +27,7 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate([
+        $this->validate($request, [
             'name' => 'required|unique:laralum_shop_status,name',
         ]);
 
@@ -41,24 +41,24 @@ class StatusController extends Controller
     /**
      * Shows the update form to update a status.
      *
-     * @param Laralum\Shop\Models\Status $status
+     * @param \Laralum\Shop\Models\Status $status
      * @return \Illuminate\Http\Response
      */
     public function edit(Status $status)
     {
-        return view('laralum_shop::status.update', ['status' => $status]);
+        return view('laralum_shop::status.edit', ['status' => $status]);
     }
 
     /**
      * Update a status.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Laralum\Shop\Models\Status $status
+     * @param \Laralum\Shop\Models\Status $status
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Status $status)
     {
-        $this->validate([
+        $this->validate($request, [
             'name' => [
                 'required',
                 Rule::unique('laralum_shop_status')->ignore($status->id),
@@ -76,7 +76,7 @@ class StatusController extends Controller
      * Delete a status.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Laralum\Shop\Models\Status $status
+     * @param \Laralum\Shop\Models\Status $status
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Status $status)
