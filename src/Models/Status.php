@@ -8,7 +8,7 @@ class Status extends Model
 {
     public $table = 'laralum_shop_status';
     public $fillable = [
-        'name'
+        'name', 'color'
     ];
 
     /**

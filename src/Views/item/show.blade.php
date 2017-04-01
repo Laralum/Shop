@@ -66,7 +66,7 @@
                     </div>
                     <div class="uk-card-body">
                         <div class="uk-overflow-auto">
-                            Te la creiste wexd
+                            {{ $item->description }}
                         </div>
                     </div>
                 </div>

@@ -73,6 +73,11 @@ class ShopServiceProvider extends ServiceProvider
             'slug' => 'laralum::shop.item.delete',
             'desc' => "Allows deleting shop items",
         ],
+        [
+            'name' => 'View Shop Orders',
+            'slug' => 'laralum::shop.order.access',
+            'desc' => 'Grants access to the shop orders',
+        ]
     ];
 
     /**

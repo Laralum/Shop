@@ -29,6 +29,18 @@ class OrderPolicy
      * @param  mixed  $order
      * @return bool
      */
+    public function access($user)
+    {
+        return User::findOrFail($user->id)->hasPermission('laralum::shop.order.access');
+    }
+
+    /**
+     * Determine if the current user can view the order.
+     *
+     * @param  mixed  $user
+     * @param  mixed  $order
+     * @return bool
+     */
     public function publicView($user, $order)
     {
         if ($order->user->id != $user->id) {

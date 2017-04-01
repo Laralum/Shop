@@ -24,14 +24,6 @@ class Order extends Model
      */
     public function status()
     {
-        /*
-        if (!$this->status_id) {
-            $status = new Status;
-            $status->name = __('laralum_shop::status.unknown');
-            return $status;
-        }
-        */
-
         return $this->belongsTo(Status::class);
     }
 
@@ -51,5 +43,15 @@ class Order extends Model
         return number_format(collect($this->items)->map(function($item) {
             return bcmul($item->pivot->units, unserialize($item->pivot->item_on_buy)['price'], 2);
         })->sum(), 2);
+    }
+
+    /**
+     * Return the total units in the order.
+     */
+    public function units()
+    {
+        return collect($this->items)->map(function($item) {
+            return $item->pivot->units;
+        })->sum();
     }
 }

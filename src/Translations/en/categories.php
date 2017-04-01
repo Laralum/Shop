@@ -13,6 +13,7 @@ return [
     'create'            => 'Create Category',
     'category_list'     => 'Category list',
     'name'              => 'Name',
+    'name_ph'           => 'Enter the category name',
     'options'           => 'Options',
     'delete'            => 'Delete',
     'delete_default'    => "You can't delete this category",

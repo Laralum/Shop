@@ -18,13 +18,22 @@ class CreateLaralumShopStatus extends Migration
             Schema::create('laralum_shop_status', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
+                $table->string('color');
                 $table->timestamps();
             });
 
-            $status = ['Pending', 'Processed', 'Shipped', 'Completed', 'Canceled'];
-            foreach($status as $name) {
+            $status = [
+                'Pending'   => '#FF9800',
+                'Processed' => '#2196F3',
+                'Shipped'   => '#9C27B0',
+                'Completed' => '#4CAF50',
+                'Canceled'  => '#F44336',
+            ];
+
+            foreach($status as $name => $color) {
                 Status::create([
                     'name' => $name,
+                    'color' = $color,
                 ]);
             }
         }

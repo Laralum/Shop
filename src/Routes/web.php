@@ -28,8 +28,8 @@ Route::group([
         'namespace' => 'Laralum\Shop\Controllers',
         'as' => 'laralum::shop.'
     ], function () {
-        Route::get('shop', 'ItemsController@index')->name('index');
 
+        Route::get('/shop', 'StatisticsController@index')->name('index');
 
         // Shop Categories
         Route::group(['middleware' => 'can:access,Laralum\Shop\Models\Category'], function() {
@@ -37,9 +37,16 @@ Route::group([
             Route::resource('shop/category', 'CategoriesController');
         });
 
+        // Shop Orders
+        Route::group(['middleware' => 'can:access,Laralum\Shop\Models\Order'], function() {
+            Route::resource('shop/order', 'OrdersController', ['only' => ['index', 'show']]);
+        });
+
+        // Shop Items
+        Route::group(['middleware' => 'can:access,Laralum\Shop\Models\Item'], function() {
+            Route::get('shop/item/{item}/delete', 'ItemsController@confirmDelete')->name('item.delete');
+            Route::resource('shop/item', 'ItemsController');
+        });
+
         Route::resource('shop/status', 'StatusController');
-        Route::resource('shop/order', 'OrdersController', ['only' => ['index', 'show']]);
-        Route::get('shop/item/{item}/delete', 'ItemsController@confirmDelete')->name('item.delete');
-        Route::resource('shop/item', 'ItemsController', ['except' => ['index']]);
-        Route::get('shop/statistics', 'StatisticsController@index')->name('statistics.index');
 });

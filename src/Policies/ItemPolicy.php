@@ -24,7 +24,7 @@ class ItemPolicy
     }
 
     /**
-     * Determine if the current user can access the shop categories.
+     * Determine if the current user can access the shop items.
      *
      * @param  mixed  $user
      * @param  mixed  $item

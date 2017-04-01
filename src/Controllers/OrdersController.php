@@ -30,7 +30,7 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-        return view('laralum_shop::shop.order', ['order' => $order]);
+        return view('laralum_shop::order.show', ['order' => $order]);
     }
 
 }

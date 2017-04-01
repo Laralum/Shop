@@ -1,8 +1,12 @@
 {
     "items": [
         {
-            "trans": "laralum_shop::items.title",
+            "trans": "laralum_shop::statistics.title",
             "route": "laralum::shop.index"
+        },
+        {
+            "trans": "laralum_shop::items.title",
+            "route": "laralum::shop.item.index"
         },
         {
             "trans": "laralum_shop::items.create",
@@ -27,10 +31,6 @@
         {
             "trans": "laralum_shop::status.create",
             "route": "laralum::shop.status.create"
-        },
-        {
-            "trans": "laralum_shop::statistics.title",
-            "route": "laralum::shop.statistics.index"
         }
     ]
 }
