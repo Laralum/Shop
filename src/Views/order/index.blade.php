@@ -57,7 +57,7 @@
                             </div>
                             <div class="uk-width-3-5@l uk-width-4-5@xl"><br />
                                 <button type="submit" class="uk-button uk-button-primary" type="button">@lang('laralum_shop::orders.filter')</button>
-                                @if($filtered)
+                                @if ($filtered)
                                     <a href="{{ route('laralum::shop.order.index') }}" class="uk-button uk-button-danger" type="button">@lang('laralum_shop::orders.remove_filter')</a>
                                 @endif
                             </div>

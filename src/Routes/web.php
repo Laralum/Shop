@@ -50,5 +50,9 @@ Route::group([
             Route::resource('shop/item', 'ItemsController');
         });
 
-        Route::resource('shop/status', 'StatusController');
+        // Shop Status
+        Route::group(['middleware' => 'can:access,Laralum\Shop\Models\Item'], function() {
+            Route::get('shop/status/{status}/delete', 'StatusController@confirmDelete')->name('status.delete');
+            Route::resource('shop/status', 'StatusController');
+        });
 });

@@ -3,10 +3,10 @@
 namespace Laralum\Shop\Policies;
 
 use Laralum\Shop\Models\User;
-use Laralum\Shop\Models\Category;
+use Laralum\Shop\Models\Status;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CategoryPolicy
+class StatusPolicy
 {
     use HandlesAuthorization;
 
@@ -31,7 +31,7 @@ class CategoryPolicy
      */
     public function access($user)
     {
-        return User::findOrFail($user->id)->hasPermission('laralum::shop.category.access');
+        return User::findOrFail($user->id)->hasPermission('laralum::shop.status.access');
     }
 
     /**
@@ -42,37 +42,35 @@ class CategoryPolicy
      */
     public function create($user)
     {
-        return User::findOrFail($user->id)->hasPermission('laralum::shop.category.create');
+        return User::findOrFail($user->id)->hasPermission('laralum::shop.status.create');
     }
 
     /**
-     * Determine if the current user can update a shop category.
+     * Determine if the current user can update a shop status.
      *
-     * @param  mixed  $user
-     * @param  mixed  $category
+     * @param  mixed  $status
+     * @param  mixed  $status
      * @return bool
      */
-    public function update($user, $category)
+    public function update($user, $status)
     {
-        return User::findOrFail($user->id)->hasPermission('laralum::shop.category.update');
+        return User::findOrFail($user->id)->hasPermission('laralum::shop.status.update');
     }
 
     /**
-     * Determine if the current user can delete a shop category.
+     * Determine if the current user can delete a shop status.
      *
      * @param  mixed  $user
-     * @param  mixed  $category
+     * @param  mixed  $status
      * @return bool
      */
-    public function delete($user, $category)
+    public function delete($user, $status)
     {
-        if (Category::first()->id == $category->id) {
-            return false;
-        }
+
 
         $user = User::findOrFail($user->id);
 
-        return ($user->superAdmin() || $user->hasPermission('laralum::shop.category.delete'));
+        return ($user->superAdmin() || $user->hasPermission('laralum::shop.status.delete'));
     }
 
 }

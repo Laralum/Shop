@@ -11,6 +11,8 @@ use Laralum\Shop\Models\Item;
 use Laralum\Shop\Policies\ItemPolicy;
 use Laralum\Shop\Models\Order;
 use Laralum\Shop\Policies\OrderPolicy;
+use Laralum\Shop\Models\Status;
+use Laralum\Shop\Policies\StatusPolicy;
 
 use Laralum\Permissions\PermissionsChecker;
 
@@ -25,6 +27,7 @@ class ShopServiceProvider extends ServiceProvider
         Category::class => CategoryPolicy::class,
         Item::class => ItemPolicy::class,
         Order::class => OrderPolicy::class,
+        Status::class => StatusPolicy::class,
     ];
 
     /**
@@ -82,7 +85,27 @@ class ShopServiceProvider extends ServiceProvider
             'name' => 'Change Shop Order Status',
             'slug' => 'laralum::shop.order.status',
             'desc' => 'Allows changing the shop order status',
-        ]
+        ],
+        [
+            'name' => 'Shop Status Access',
+            'slug' => 'laralum::shop.status.access',
+            'desc' => "Grants access to shop status",
+        ],
+        [
+            'name' => 'Create Shop Status',
+            'slug' => 'laralum::shop.status.create',
+            'desc' => "Allows creating shop status",
+        ],
+        [
+            'name' => 'Edit Shop Status',
+            'slug' => 'laralum::shop.status.update',
+            'desc' => "Allows editing shop status",
+        ],
+        [
+            'name' => 'Delete Shop Status',
+            'slug' => 'laralum::shop.status.delete',
+            'desc' => "Allows deleting shop status",
+        ],
     ];
 
     /**
