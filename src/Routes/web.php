@@ -39,6 +39,8 @@ Route::group([
 
         // Shop Orders
         Route::group(['middleware' => 'can:access,Laralum\Shop\Models\Order'], function() {
+            Route::match(['GET', 'POST'], 'shop/order/filter/{status?}', 'OrdersController@filter')->name('order.filter');
+            Route::post('shop/order/{order}/status', 'OrdersController@status')->name('order.status');
             Route::resource('shop/order', 'OrdersController', ['only' => ['index', 'show']]);
         });
 

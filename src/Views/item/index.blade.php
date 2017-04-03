@@ -42,6 +42,15 @@
                                                     <a href="{{ route('laralum::shop.item.show', ['item' => $item->id]) }}" class="uk-button uk-button-small uk-button-default">
                                                         @lang('laralum_shop::items.show')
                                                     </a>
+                                                    @can('update', $item)
+                                                        <a href="{{ route('laralum::shop.item.edit', ['item' => $item->id]) }}" class="uk-button uk-button-small uk-button-default">
+                                                            @lang('laralum_shop::items.edit')
+                                                        </a>
+                                                    @else
+                                                        <button disabled class="uk-button uk-button-small uk-button-default">
+                                                            @lang('laralum_shop::items.edit')
+                                                        </button>
+                                                    @endcan
                                                     @can('delete', $item)
                                                         <a href="{{ route('laralum::shop.item.delete', ['item' => $item->id]) }}" class="uk-button uk-button-small uk-button-danger">
                                                             @lang('laralum_shop::items.delete')

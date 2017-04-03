@@ -21,6 +21,7 @@ return [
     'category'          => 'Category',
     'options'           => 'Options',
     'show'              => 'Details',
+    'edit'              => 'Edit',
     'delete'            => 'Delete',
     'create'            => 'Create Item',
     'create_subtitle'   => 'Create a new shop item',
@@ -38,4 +39,7 @@ return [
     'available'         => 'Available',
     'x_available'       => ':x Available',
     'out_of_stock'      => 'Out Of Stock',
+    'edit_title'        => 'Editing item #:id',
+    'edit_subtitle'     => 'Editing the item #:id',
+    'save_item'         => 'Save Item',
 ];

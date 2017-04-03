@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <ul class="uk-breadcrumb">
         <li><a href="{{ route('laralum::index') }}">@lang('laralum_shop::general.home')</a></li>
-        <li><a href="{{ route('laralum::shop.index') }}">@lang('laralum_shop::items.title')</a></li>
+        <li><a href="{{ route('laralum::shop.item.index') }}">@lang('laralum_shop::items.title')</a></li>
         <li><span href="">{{ $item->name }}</span></li>
     </ul>
 @endsection
@@ -54,6 +54,19 @@
                             <div class="uk-width-1-2">
                                 <h4>@lang('laralum_shop::items.updated_date')</h4>
                                 <span>{{ $item->updated_at->diffForHumans() }}</span>
+                            </div>
+                            <div class="uk-width-1-1">
+                                @can('update', $item)
+                                    <a href="{{ route('laralum::shop.item.edit', ['item' => $item->id]) }}" class="uk-button uk-button-primary uk-width-1-1">@lang('laralum_shop::items.edit')</a>
+                                @else
+                                    <button disabled class="uk-button uk-button-primary uk-width-1-1">@lang('laralum_shop::items.edit')</button>
+                                @endcan
+                                <br /><br />
+                                @can('update', $item)
+                                    <a href="{{ route('laralum::shop.item.delete', ['item' => $item->id]) }}" class="uk-button uk-button-danger uk-width-1-1">@lang('laralum_shop::items.delete')</a>
+                                @else
+                                    <button disabled class="uk-button uk-button-primary uk-width-1-1">@lang('laralum_shop::items.delete')</button>
+                                @endcan
                             </div>
                         </div>
                     </div>

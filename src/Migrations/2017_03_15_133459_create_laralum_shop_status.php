@@ -33,7 +33,7 @@ class CreateLaralumShopStatus extends Migration
             foreach($status as $name => $color) {
                 Status::create([
                     'name' => $name,
-                    'color' = $color,
+                    'color' => $color,
                 ]);
             }
         }

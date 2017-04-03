@@ -35,6 +35,18 @@ class OrderPolicy
     }
 
     /**
+     * Determine if the current user can change the order status.
+     *
+     * @param  mixed  $user
+     * @param  mixed  $order
+     * @return bool
+     */
+    public function status($user, $order)
+    {
+        return User::findOrFail($user->id)->hasPermission('laralum::shop.order.status');
+    }
+
+    /**
      * Determine if the current user can view the order.
      *
      * @param  mixed  $user

@@ -11,6 +11,7 @@ return [
     'subtitle'          => 'View all the shop orders',
     'order_list'        => 'Order list',
     'id'                => 'Identifier',
+    'order'             => 'Order',
     'status'            => 'Status',
     'user_email'        => 'User Email',
     'items'             => 'Items',
@@ -25,4 +26,9 @@ return [
     'show_subtitle'     => 'View the order #:id details',
     'order_details'     => 'Order Details',
     'order_items'       => 'Order Items',
+    'status_changed'    => 'Order status changed successfully',
+    'cancel'            => 'Cancel',
+    'save'              => 'Save',
+    'filter'            => 'Filter orders',
+    'remove_filter'     => 'Remove filter',
 ];

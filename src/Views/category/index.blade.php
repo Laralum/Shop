@@ -34,6 +34,15 @@
                                             <td>{{ $category->name }}</td>
                                             <td class="uk-table-shrink">
                                                 <div class="uk-button-group">
+                                                    @can('update', $category)
+                                                        <a href="{{ route('laralum::shop.category.edit', ['category' => $category->id]) }}" class="uk-button uk-button-small uk-button-default">
+                                                            @lang('laralum_shop::categories.edit')
+                                                        </a>
+                                                    @else
+                                                        <button disabled class="uk-button uk-button-small uk-button-default">
+                                                            @lang('laralum_shop::categories.edit')
+                                                        </button>
+                                                    @endcan
                                                     @can('delete', $category)
                                                         <a href="{{ route('laralum::shop.category.delete', ['category' => $category->id]) }}" class="uk-button uk-button-small uk-button-danger">
                                                             @lang('laralum_shop::categories.delete')

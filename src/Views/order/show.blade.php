@@ -25,7 +25,7 @@
                             </div>
                             <div class="uk-width-1-2">
                                 <h4>@lang('laralum_shop::orders.status')</h4>
-                                <span>{{ $order->status->name }}</span>
+                                <span style="color: {{ $order->status->color }};">{{ $order->status->name }}</span>
                             </div>
                             <div class="uk-width-1-2">
                                 <h4>@lang('laralum_shop::orders.user_email')</h4>

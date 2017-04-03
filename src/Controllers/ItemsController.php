@@ -70,7 +70,7 @@ class ItemsController extends Controller
             'description' => 'required|min:15',
             'price' => 'required|numeric|min:0',
             'category' => 'required|exists:laralum_shop_categories,id',
-            'stock' => ($request->stock || $request->stock === 0) ? 'integer' : '',
+            'stock' => ($request->stock || $request->stock === "0") ? 'integer' : '',
         ]);
 
         Item::create([
@@ -78,10 +78,10 @@ class ItemsController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category,
-            'stock' => ($request->stock || $request->stock === 0) ? $request->stock : null,
+            'stock' => ($request->stock || $request->stock === "0") ? $request->stock : null,
         ]);
 
-        return redirect()->route('laralum::shop.index')->with('success', __('laralum_shop::items.created'));
+        return redirect()->route('laralum::shop.item.index')->with('success', __('laralum_shop::items.created'));
     }
 
     /**
@@ -94,7 +94,7 @@ class ItemsController extends Controller
     {
         $this->authorize('update', $item);
 
-        return view('laralum_shop::item.edit', ['item' => $item]);
+        return view('laralum_shop::item.edit', ['item' => $item, 'categories' => Category::all()]);
     }
 
     /**
@@ -108,12 +108,12 @@ class ItemsController extends Controller
     {
         $this->authorize('update', $item);
 
-        $this->validate([
+        $this->validate($request,   [
             'name' => 'required|min:5',
             'description' => 'required|min:15',
             'price' => 'required|numeric|min:0',
             'category' => 'required|exists:laralum_shop_categories,id',
-            'stock' => 'integer',
+            'stock' => ($request->stock || $request->stock === "0") ? 'integer' : '',
         ]);
 
         $item->update([
@@ -121,10 +121,10 @@ class ItemsController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category,
-            'stock' => ($request->stock || $request->stock === 0) ? $request->stock : null,
+            'stock' => ($request->stock || $request->stock === "0") ? $request->stock : null,
         ]);
 
-        return redirect()->route('laralum::shop.index')->with('success', __('laralum_shop::items.updated'));
+        return redirect()->route('laralum::shop.item.index')->with('success', __('laralum_shop::items.updated'));
     }
 
     /**
@@ -156,6 +156,6 @@ class ItemsController extends Controller
 
         $item->delete();
 
-        return redirect()->route('laralum::shop.index')->with('success', __('laralum_shop::items.deleted'));
+        return redirect()->route('laralum::shop.item.index')->with('success', __('laralum_shop::items.deleted'));
     }
 }

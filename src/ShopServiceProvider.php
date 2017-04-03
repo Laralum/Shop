@@ -77,6 +77,11 @@ class ShopServiceProvider extends ServiceProvider
             'name' => 'View Shop Orders',
             'slug' => 'laralum::shop.order.access',
             'desc' => 'Grants access to the shop orders',
+        ],
+        [
+            'name' => 'Change Shop Order Status',
+            'slug' => 'laralum::shop.order.status',
+            'desc' => 'Allows changing the shop order status',
         ]
     ];
 
