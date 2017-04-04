@@ -30,6 +30,7 @@ Route::group([
     ], function () {
 
         Route::get('/shop', 'StatisticsController@index')->name('index');
+        Route::match(['GET', 'POST'], 'shop/filter/{number?}', 'StatisticsController@filter')->name('index.filter');
 
         // Shop Categories
         Route::group(['middleware' => 'can:access,Laralum\Shop\Models\Category'], function() {
