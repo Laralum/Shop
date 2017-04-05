@@ -8,7 +8,8 @@ class Order extends Model
 {
     public $table = 'laralum_shop_orders';
     public $fillable = [
-        'status_id', 'user_id'
+        'status_id', 'user_id', 'shipping_name', 'shipping_adress', 'shipping_zip',
+        'shipping_state', 'shipping_city', 'shipping_country'
     ];
 
     /**

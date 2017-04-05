@@ -18,6 +18,12 @@ class CreateLaralumShopOrders extends Migration
                 $table->increments('id');
                 $table->integer('status_id');
                 $table->integer('user_id');
+                $table->string('shipping_name')->nullable();
+                $table->string('shipping_adress')->nullable();
+                $table->string('shipping_zip')->nullable();
+                $table->string('shipping_state')->nullable();
+                $table->string('shipping_city')->nullable();
+                $table->string('shipping_country')->nullable();
                 $table->timestamps();
             });
         }

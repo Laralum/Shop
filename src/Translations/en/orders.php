@@ -31,4 +31,5 @@ return [
     'save'              => 'Save',
     'filter'            => 'Filter orders',
     'remove_filter'     => 'Remove filter',
+    'shipping_adress'   => 'Shipping Adress',
 ];

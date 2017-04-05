@@ -72,6 +72,5 @@ class StatisticsController extends Controller
             })->sum()];
         });
     }
-
-
+    
 }

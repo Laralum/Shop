@@ -18,7 +18,11 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        return view('laralum_shop::order.index', ['filtered' => false, 'orders' => Order::all(), 'status' => Status::all()]);
+        return view('laralum_shop::order.index', [
+            'filtered' => false,
+            'orders' => Order::all(),
+            'status' => Status::all(),
+        ]);
     }
 
     /**
@@ -38,7 +42,11 @@ class OrdersController extends Controller
             $orders = Order::where('status_id', $request->status)->get();
         }
 
-        return view('laralum_shop::order.index', ['filtered' => true, 'orders' => $orders, 'status' => Status::all()]);
+        return view('laralum_shop::order.index', [
+            'filtered' => true,
+            'orders' => $orders,
+            'status' => Status::all(),
+        ]);
     }
 
     /**
@@ -49,7 +57,7 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-        return view('laralum_shop::order.show', ['order' => $order]);
+        return view('laralum_shop::order.show', ['order' => $order, 'status' => Status::all()]);
     }
 
     /**
@@ -71,7 +79,7 @@ class OrdersController extends Controller
             'status_id' => $request->status,
         ]);
 
-        return redirect()->route('laralum::shop.order.index')->with('success', __('laralum_shop::orders.status_changed'));
+        return redirect()->route('laralum::shop.order.show', ['order' => $order->id])->with('success', __('laralum_shop::orders.status_changed'));
     }
 
 }

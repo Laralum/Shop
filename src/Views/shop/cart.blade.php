@@ -64,6 +64,9 @@ $settings - It stores the application settings of the laralum settings module.
                         data-description="Enter the following data to continue"
                         data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                         data-locale="auto"
+                        data-zip-code="true"
+                        data-shipping-address="true"
+                        data-email="{{ Auth::user()->email }}"
                         data-currency="eur">
                     </script>
                 </form>

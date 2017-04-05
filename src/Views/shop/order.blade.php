@@ -16,6 +16,14 @@ $order - It stores the selected order as the model instance.
     <a href="{{ route('laralum_public::shop.orders') }}">My Orders</a>
     <div id="order">
         <h1>Order #{{ $order->id }}</h1>
+        @if ($order->shipping_adress)
+            <h4>Shipping adress</h4>
+                {{ $order->shipping_adress }},
+                {{ $order->shipping_zip }},
+                {{ $order->shipping_city }},
+                {{ $order->shipping_country }}<br />
+        @endif
+        <h4>Items</h4>
         <table style="width: 100%">
             <tr>
                 <th>Item</th>

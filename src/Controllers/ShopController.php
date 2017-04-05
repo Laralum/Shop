@@ -28,7 +28,13 @@ class ShopController extends Controller
      */
      public function __construct()
      {
-         Stripe::setApiKey(decrypt(PaymentsSettings::first()->stripe_secret));
+         $payments = PaymentsSettings::first();
+
+         if (!$payments->ready()) {
+             abort(404, "Payments module is not setup");
+         }
+
+         Stripe::setApiKey(decrypt($payments->stripe_secret));
      }
     /**
      * Shows all the items (can be filtered by a category).
@@ -192,10 +198,17 @@ class ShopController extends Controller
             }
         }
 
-        $order = new Order;
-        $order->user()->associate(Auth::user());
-        $order->status()->associate(Status::findOrFail(1)); // HARD CODED; PLEASE KILL ME
-        $order->save();
+        $order = Order::create([
+            'user_id' => Auth::user()->id,
+            'status_id' => Status::findOrFail(1)->id,
+            'shipping_name' => $request->stripeShippingName,
+            'shipping_adress' => $request->stripeShippingAddressLine1,
+            'shipping_zip' => $request->stripeShippingAddressZip,
+            'shipping_state' => $request->stripeShippingAddressState,
+            'shipping_city' => $request->stripeShippingAddressCity,
+            'shipping_country' => $request->stripeShippingAddressCountry,
+        ]);
+
         $order->items()->attach(collect(self::currentItems())->mapWithKeys(function($item) {
             return [
                 $item['item']->id => [
@@ -232,7 +245,9 @@ class ShopController extends Controller
 
         session(['laralum_shop_cart' => []]);
 
-        return redirect()->route('laralum_public::shop.orders')->with('success', __('laralum_shop::shop.buy_success'));
+        return redirect()->route('laralum_public::shop.orders')->with('success', __('laralum_shop::shop.buy_success', [
+            'id' => $order->id,
+        ]));
     }
 
     /**
