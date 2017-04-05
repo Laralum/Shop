@@ -10,7 +10,7 @@ return [
     'title'             => 'View Orders',
     'subtitle'          => 'View all the shop orders',
     'order_list'        => 'Order list',
-    'id'                => 'Identifier',
+    'taxes'             => 'Taxes',
     'order'             => 'Order',
     'status'            => 'Status',
     'user_email'        => 'User Email',

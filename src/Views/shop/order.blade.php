@@ -49,12 +49,12 @@ $order - It stores the selected order as the model instance.
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><span class="money">{{ $order->price() }}</span></td>
+                <td><span class="money">{{ $order->totalPrice() }}</span></td>
             </tr>
         </table>
         <br />
         <p>
-            Total order price: <b class="money">{{ $order->price() }}</b>
+            Total order price: <b class="money">{{ $order->totalPrice() }}</b>
         </p>
     </div>
     <p>
@@ -69,7 +69,7 @@ $order - It stores the selected order as the model instance.
     <script>
         OSREC.CurrencyFormatter.formatAll({
             selector: '.money',
-            currency: 'EUR'
+            currency: '{{ \Laralum\Shop\Models\Settings::first()->currency }}'
         });
         $('.money').each(function() {
             $(this).html('<i>'+$(this).html()+'</i>');

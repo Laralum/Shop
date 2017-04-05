@@ -18,6 +18,7 @@ class CreateLaralumShopOrders extends Migration
                 $table->increments('id');
                 $table->integer('status_id');
                 $table->integer('user_id');
+                $table->decimal('tax_percentage_on_buy', 5, 2);
                 $table->string('shipping_name')->nullable();
                 $table->string('shipping_adress')->nullable();
                 $table->string('shipping_zip')->nullable();

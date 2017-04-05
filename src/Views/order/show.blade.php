@@ -51,10 +51,6 @@
                     <div class="uk-card-body">
                         <div uk-grid>
                             <div class="uk-width-1-2">
-                                <h4>@lang('laralum_shop::orders.id')</h4>
-                                <span>#{{ $order->id }}</span>
-                            </div>
-                            <div class="uk-width-1-2">
                                 <h4>@lang('laralum_shop::orders.status')</h4>
                                 <span style="color: {{ $order->status->color }};">{{ $order->status->name }}</span>
                             </div>
@@ -63,8 +59,12 @@
                                 <span>{{ $order->user->name }}</span>
                             </div>
                             <div class="uk-width-1-2">
+                                <h4>@lang('laralum_shop::orders.taxes')</h4>
+                                <span><span class="money">{{$order->tax() }}</span> ({{ $order->tax_percentage_on_buy }}%)</span>
+                            </div>
+                            <div class="uk-width-1-2">
                                 <h4>@lang('laralum_shop::orders.earnings')</h4>
-                                <span class="uk-label uk-label-success money">{{ $order->price() }}</span>
+                                <span class="uk-label uk-label-success money">{{ $order->totalPrice() }}</span>
                             </div>
                             <div class="uk-width-1-2">
                                 <h4>@lang('laralum_shop::orders.items')</h4>
@@ -148,7 +148,7 @@
 <script>
     OSREC.CurrencyFormatter.formatAll({
         selector: '.money',
-        currency: 'EUR'
+        currency: '{{ \Laralum\Shop\Models\Settings::first()->currency }}'
     });
     $(function() {
         $('#change_status').click(function() {

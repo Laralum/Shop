@@ -45,7 +45,7 @@ $settings - It stores the application settings of the laralum settings module.
     <script>
         OSREC.CurrencyFormatter.formatAll({
             selector: '.money',
-            currency: 'EUR'
+            currency: '{{ \Laralum\Shop\Models\Settings::first()->currency }}'
         });
     </script>
 </body>

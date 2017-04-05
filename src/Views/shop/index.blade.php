@@ -32,7 +32,7 @@ $items - It stores all the items (may be filtered depending if a category has be
     <script>
         OSREC.CurrencyFormatter.formatAll({
             selector: '.money',
-            currency: 'EUR'
+            currency: '{{ \Laralum\Shop\Models\Settings::first()->currency }}'
         });
     </script>
 </body>

@@ -4,6 +4,7 @@ namespace Laralum\Shop\Policies;
 
 use Laralum\Shop\Models\User;
 use Laralum\Shop\Models\Status;
+use Laralum\Shop\Models\Settings;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StatusPolicy
@@ -48,7 +49,7 @@ class StatusPolicy
     /**
      * Determine if the current user can update a shop status.
      *
-     * @param  mixed  $status
+     * @param  mixed  $user
      * @param  mixed  $status
      * @return bool
      */
@@ -66,7 +67,11 @@ class StatusPolicy
      */
     public function delete($user, $status)
     {
+        $settings = Settings::first();
 
+        if ($status->id == $settings->default_status || $status->id == $settings->paid_status) {
+            return false;
+        }
 
         $user = User::findOrFail($user->id);
 

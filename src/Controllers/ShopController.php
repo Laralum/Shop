@@ -9,8 +9,9 @@ use Laralum\Shop\Models\Category;
 use Laralum\Shop\Models\Item;
 use Laralum\Shop\Models\Order;
 use Laralum\Shop\Models\Status;
-use Laralum\Settings\Models\Settings;
+use Laralum\Settings\Models\Settings as AppSettings;
 use Laralum\Payments\Models\Settings as PaymentsSettings;
+use Laralum\Shop\Models\Settings;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Laralum\Users\Models\User;
@@ -67,7 +68,7 @@ class ShopController extends Controller
         return view('laralum_shop::shop.item', [
             'item' => $item,
             'payments' => PaymentsSettings::first(),
-            'settings' => Settings::first(),
+            'settings' => AppSettings::first(),
         ]);
     }
 
@@ -102,10 +103,18 @@ class ShopController extends Controller
     public function cart()
     {
         $items = self::currentItems();
+        $settings = Settings::first();
+
+        $price = bcmul($items->sum('price'), 100, 2);
+        $tax = bcmul($settings->tax_percentage, $items->sum('price'), 2);
 
         return view('laralum_shop::shop.cart', [
             'items' => $items,
+            'tax' => $tax,
+            'price' => $price,
+            'totalPrice' => bcadd($tax, $price, 2),
             'payments' => PaymentsSettings::first(),
+            'app_settings' => AppSettings::first(),
             'settings' => Settings::first(),
         ]);
     }
@@ -186,6 +195,12 @@ class ShopController extends Controller
      */
     public function checkout(Request $request)
     {
+        $settings = Settings::first();
+
+        if ($settings->emergency) {
+            abort(403, __('laralum_shop::general.emergency_on'));
+        }
+
         $this->validate($request, [
             'stripeToken' => 'required',
             'stripeEmail' => 'required',
@@ -201,6 +216,7 @@ class ShopController extends Controller
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'status_id' => Status::findOrFail(1)->id,
+            'tax_percentage_on_buy' => $settings->tax_percentage,
             'shipping_name' => $request->stripeShippingName,
             'shipping_adress' => $request->stripeShippingAddressLine1,
             'shipping_zip' => $request->stripeShippingAddressZip,
@@ -223,8 +239,8 @@ class ShopController extends Controller
         try {
             if ($order->price() > 0) {
                 Charge::create([
-                    "amount" => $order->price() * 100,
-                    "currency" => "eur",
+                    "amount" => $order->totalPrice() * 100,
+                    "currency" => $settings->currency,
                     "source" => $request->stripeToken,
                     "description" => "Charge for order: #$order->id",
                 ]);
@@ -238,10 +254,9 @@ class ShopController extends Controller
             return redirect()->route('laralum_public::shop.orders')->with('error', __('laralum_shop::shop.buy_error'));
         }
 
-
-
-        $order->status()->associate(Status::findOrFail(2)); // HARD CODED; PLEASE KILL ME
-        $order->save();
+        $order->update([
+            'status_id' => $settings->paid_status,
+        ]);
 
         session(['laralum_shop_cart' => []]);
 

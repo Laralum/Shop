@@ -89,7 +89,7 @@
 <script>
     OSREC.CurrencyFormatter.formatAll({
         selector: '.money',
-        currency: 'EUR'
+        currency: '{{ \Laralum\Shop\Models\Settings::first()->currency }}'
     });
 </script>
 @endsection

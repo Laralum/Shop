@@ -16,8 +16,12 @@ $items - It stores the currently items in the shipping card.
             'price' => 2,
         ],
     ]
+$price - Stores the price in cents without taxes
+$tax - Stores the tax ammount in cents
+$totalPrice - Stores the addition of tax and price in cents.
 $payments - It stores the payments settings of the laralum payments module.
-$settings - It stores the application settings of the laralum settings module.
+$app_settings - It stores the application settings of the laralum settings module.
+$settings - It stores the shop settings.
 
 --}}
 <!DOCTYPE html>
@@ -51,25 +55,34 @@ $settings - It stores the application settings of the laralum settings module.
         @if(count($items) > 0)
             <hr />
             <p>
-                Total to pay: <b class="money">{{ $items->sum('price') }}</b>
+                Taxes: <b class="money">{{ $tax/100 }}</b>
+            </p>
+            <p>
+                Total to pay: <span class="money">{{ $tax/100 }}</span> + <span class="money">{{ $price/100 }}</span> = <b class="money">{{ $totalPrice/100 }}</b>
             </p>
             @if(Auth::check())
-                <form action="{{ route('laralum_public::shop.cart.checkout') }}" method="POST">
-                    {{ csrf_field() }}
-                    <script
-                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="{{ decrypt($payments->stripe_key) }}" {{-- The key needs to be decrypted first --}}
-                        data-amount="{{ $items->sum('price') * 100 }}" {{-- Stripe only uses cents --}}
-                        data-name="{{ $settings->appname }} Store"
-                        data-description="Enter the following data to continue"
-                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                        data-locale="auto"
-                        data-zip-code="true"
-                        data-shipping-address="true"
-                        data-email="{{ Auth::user()->email }}"
-                        data-currency="eur">
-                    </script>
-                </form>
+                @if(!$settings->emergency)
+                    <form action="{{ route('laralum_public::shop.cart.checkout') }}" method="POST">
+                        {{ csrf_field() }}
+                        <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ decrypt($payments->stripe_key) }}" {{-- The key needs to be decrypted first --}}
+                            data-amount="{{ $totalPrice }}"
+                            data-name="{{ $app_settings->appname }} Store"
+                            data-description="Enter the following data to continue"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="auto"
+                            data-zip-code="true"
+                            data-shipping-address="true"
+                            data-email="{{ Auth::user()->email }}"
+                            data-currency="eur">
+                        </script>
+                    </form>
+                @else
+                    <p>
+                        @lang('laralum_shop::general.emergency_on');
+                    </p>
+                @endif
             @else
                 <p>
                     <a href="{{ route('login') }}">Login to continue</a>
@@ -81,7 +94,7 @@ $settings - It stores the application settings of the laralum settings module.
     <script>
         OSREC.CurrencyFormatter.formatAll({
             selector: '.money',
-            currency: 'EUR'
+            currency: '{{ \Laralum\Shop\Models\Settings::first()->currency }}'
         });
     </script>
 </body>

@@ -40,7 +40,7 @@ class Item extends Model
       */
      public function earnings()
      {
-         return bcmul($this->sales(), $this->price, 2);
+         return $this->orders->where('status_id', Settings::first()->paid_status)->map(function($order) { return $order->totalPrice(); })->sum();
      }
 
      /**

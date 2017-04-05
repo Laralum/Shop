@@ -22,14 +22,14 @@ $orders - It stores the current logged in user orders as the model instance.
     @endif
     @foreach($orders as $order)
         <h3>Order #{{ $order->id }}</h3>
-        Total order price: <b class="money">{{ $order->price() }}</b> -
+        Total order price: <b class="money">{{ $order->totalPrice() }}</b> -
         <a href="{{ route('laralum_public::shop.order', ['order' => $order->id]) }}">More details</a>
     @endforeach
     <script src="https://cdn.bootcss.com/currencyformatter.js/1.0.4/currencyFormatter.min.js"></script>
     <script>
         OSREC.CurrencyFormatter.formatAll({
             selector: '.money',
-            currency: 'EUR'
+            currency: '{{ \Laralum\Shop\Models\Settings::first()->currency }}'
         });
     </script>
 </body>

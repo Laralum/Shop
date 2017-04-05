@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Laralum\Shop\Models\Order;
 use Laralum\Shop\Models\Item;
+use Laralum\Shop\Models\Settings;
 use Auth;
 
 class StatisticsController extends Controller
@@ -18,15 +19,15 @@ class StatisticsController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::where('status_id', Settings::first()->paid_status)->get();
         $number = 7;
 
         $statistics = [
             'items'             => Item::all(),
             'orders'            => $orders,
-            'earnings'          => $orders->map(function ($order){ return $order->price(); })->sum(),
+            'earnings'          => $orders->map(function ($order){ return $order->totalPrice(); })->sum(),
             'last_earnings'     => self::lastEarningsByDay($number),
-            'last_orders'       => Order::whereDate('created_at', '>', date('Y-m-d', strtotime('-'.$number.' days')))->get(),
+            'last_orders'       => Order::whereDate('created_at', '>', date('Y-m-d', strtotime('-'.$number.' days')))->where('status_id', Settings::first()->paid_status)->get(),
         ];
 
         return view('laralum_shop::statistics.index', ['statistics' => $statistics, 'number' => $number]);
@@ -39,7 +40,7 @@ class StatisticsController extends Controller
      */
     public function filter(Request $request, $number = 7)
     {
-        $orders = Order::all();
+        $orders = Order::where('status_id', Settings::first()->paid_status)->get();
 
         if ($request->number) {
             $number = $request->number;
@@ -48,9 +49,9 @@ class StatisticsController extends Controller
         $statistics = [
             'items'             => Item::all(),
             'orders'            => $orders,
-            'earnings'          => $orders->map(function ($order){ return $order->price(); })->sum(),
+            'earnings'          => $orders->map(function ($order){ return $order->totalPrice(); })->sum(),
             'last_earnings'     => self::lastEarningsByDay($number),
-            'last_orders'       => Order::whereDate('created_at', '>', date('Y-m-d', strtotime('-'.$number.' days')))->get(),
+            'last_orders'       => Order::whereDate('created_at', '>', date('Y-m-d', strtotime('-'.$number.' days')))->where('status_id', Settings::first()->paid_status)->get(),
         ];
 
         return view('laralum_shop::statistics.index', ['statistics' => $statistics, 'number' => $number]);
@@ -67,10 +68,11 @@ class StatisticsController extends Controller
         for ($days = []; count($days) < $d; array_push($days, (date('Y-m-d', strtotime('-'.count($days).' days')))));
 
         return collect($days)->reverse()->mapWithKeys(function($date){
-            return [$date => Order::whereDate('created_at', '=', date('Y-m-d', strtotime($date)))->get()->map(function($order){
-                return $order->price();
+            return [$date => Order::whereDate('created_at', '=', date('Y-m-d', strtotime($date)))
+                ->where('status_id', Settings::first()->paid_status)->get()->map(function($order){
+                    return $order->totalPrice();
             })->sum()];
         });
     }
-    
+
 }

@@ -3,9 +3,14 @@
 /**
  * Public Shop Routes
  */
+if (\Illuminate\Support\Facades\Schema::hasTable('laralum_shop_settings')) {
+    $public_prefix = \Laralum\Shop\Models\Settings::first()->public_prefix;
+} else {
+    $public_prefix = 'shop';
+}
 Route::group([
         'middleware' => ['web', 'laralum.base'],
-        'prefix' => 'shop',
+        'prefix' => $public_prefix,
         'namespace' => 'Laralum\Shop\Controllers',
         'as' => 'laralum_public::'
     ], function () {
@@ -31,6 +36,8 @@ Route::group([
 
         Route::get('/shop', 'StatisticsController@index')->name('index');
         Route::match(['GET', 'POST'], 'shop/filter/{number?}', 'StatisticsController@filter')->name('index.filter');
+
+        Route::post('/shop/settings', 'SettingsController@update')->name('settings.update');
 
         // Shop Categories
         Route::group(['middleware' => 'can:access,Laralum\Shop\Models\Category'], function() {

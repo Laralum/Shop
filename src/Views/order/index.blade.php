@@ -90,7 +90,7 @@
                                             <td>{{ $order->user->email }}</td>
                                             <td>{{ $order->items->count() }}</td>
                                             <td>{{ $order->units() }}</td>
-                                            <td><span class="money">{{ $order->price() }}</span></td>
+                                            <td><span class="money">{{ $order->totalPrice() }}</span></td>
                                             <td><span style="color: {{ $order->status->color }};">{{ $order->status->name }}</span></td>
                                             <td class="uk-table-shrink">
                                                 <div class="uk-button-group">
@@ -135,7 +135,7 @@
 <script>
     OSREC.CurrencyFormatter.formatAll({
         selector: '.money',
-        currency: 'EUR'
+        currency: '{{ \Laralum\Shop\Models\Settings::first()->currency }}'
     });
     $(function() {
         $('.change_status').click(function() {

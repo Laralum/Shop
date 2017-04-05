@@ -13,6 +13,8 @@ use Laralum\Shop\Models\Order;
 use Laralum\Shop\Policies\OrderPolicy;
 use Laralum\Shop\Models\Status;
 use Laralum\Shop\Policies\StatusPolicy;
+use Laralum\Shop\Models\Settings;
+use Laralum\Shop\Policies\SettingsPolicy;
 
 use Laralum\Permissions\PermissionsChecker;
 
@@ -28,6 +30,7 @@ class ShopServiceProvider extends ServiceProvider
         Item::class => ItemPolicy::class,
         Order::class => OrderPolicy::class,
         Status::class => StatusPolicy::class,
+        Settings::class => SettingsPolicy::class,
     ];
 
     /**
@@ -106,6 +109,11 @@ class ShopServiceProvider extends ServiceProvider
             'slug' => 'laralum::shop.status.delete',
             'desc' => "Allows deleting shop status",
         ],
+        [
+            'name' => 'Shop Settings',
+            'slug' => 'laralum::shop.settings',
+            'desc' => "Allows edititing the shop settings",
+        ]
     ];
 
     /**
