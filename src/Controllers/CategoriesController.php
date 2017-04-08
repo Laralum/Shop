@@ -115,7 +115,7 @@ class CategoriesController extends Controller
         $this->authorize('delete', $category);
 
         $category->items->each(function($item) {
-            $item->update(['category_id' => Category::first()]);
+            $item->update(['category_id' => Category::first()->id]);
         });
 
         $category->delete();
