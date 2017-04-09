@@ -127,6 +127,10 @@ class ShopServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(__DIR__.'/Translations', 'laralum_shop');
 
+        $this->publishes([
+            __DIR__.'/Views/shop' => resource_path('views/vendor/laralum/shop'),
+        ], 'laralum_shop');
+
         $this->loadViewsFrom(__DIR__.'/Views', 'laralum_shop');
 
         if (!$this->app->routesAreCached()) {
