@@ -107,8 +107,8 @@
                     <div class="uk-card-body">
                         {!! ConsoleTVs\Charts\Facades\Charts::multi('bar', 'highcharts')
                             ->labels($statistics['last_earnings']->keys()->map(function($date){ return date('l dS M, Y', strtotime($date)); })->all())
-                            ->dataset(__('laralum_shop::statistics.earnings'), $statistics['last_earnings'])
-                            ->elementLabel(__('laralum_shop::statistics.earnings'))
+                            ->dataset(__('laralum_shop::statistics.earnings', ['currency' => \Laralum\Shop\Models\Settings::first()->currency]), $statistics['last_earnings'])
+                            ->elementLabel(__('laralum_shop::statistics.earnings', ['currency' => \Laralum\Shop\Models\Settings::first()->currency]))
                             ->title(' ')->dimensions(0, 400)->render()
                         !!}
                     </div>

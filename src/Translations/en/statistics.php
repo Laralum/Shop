@@ -10,7 +10,7 @@ return [
 
     'title'                     => 'Shop Statistics',
     'subtitle'                  => 'View the shop statistics and earnings',
-    'earnings'                  => 'Earnings',
+    'earnings'                  => 'Earnings (:currency)',
     'total_earnings'            => 'Total Earnings',
     'last_earnings'             => 'Earnings in the last :number days',
     'total_items'               => 'Total Items',

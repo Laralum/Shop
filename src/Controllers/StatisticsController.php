@@ -26,7 +26,7 @@ class StatisticsController extends Controller
             'items'             => Item::all(),
             'orders'            => $orders,
             'earnings'          => $orders->map(function ($order){ return $order->totalPrice(); })->sum(),
-            'last_earnings'     => self::lastEarningsByDay($number),
+            'last_earnings'     => static::lastEarningsByDay($number),
             'last_orders'       => Order::whereDate('created_at', '>', date('Y-m-d', strtotime('-'.$number.' days')))->where('status_id', Settings::first()->paid_status)->get(),
         ];
 
@@ -50,7 +50,7 @@ class StatisticsController extends Controller
             'items'             => Item::all(),
             'orders'            => $orders,
             'earnings'          => $orders->map(function ($order){ return $order->totalPrice(); })->sum(),
-            'last_earnings'     => self::lastEarningsByDay($number),
+            'last_earnings'     => static::lastEarningsByDay($number),
             'last_orders'       => Order::whereDate('created_at', '>', date('Y-m-d', strtotime('-'.$number.' days')))->where('status_id', Settings::first()->paid_status)->get(),
         ];
 
@@ -63,7 +63,7 @@ class StatisticsController extends Controller
      * @param int $d
      * @return \Illuminate\Http\Response
      */
-    public function lastEarningsByDay($d = 7)
+    public static function lastEarningsByDay($d = 7)
     {
         for ($days = []; count($days) < $d; array_push($days, (date('Y-m-d', strtotime('-'.count($days).' days')))));
 

@@ -1,0 +1,10 @@
+[
+    {
+        "view": "laralum_shop::widgets.sales",
+        "permission": "laralum::shop.statistics"
+    },
+    {
+        "view": "laralum_shop::widgets.earnings",
+        "permission": "laralum::shop.statistics"
+    }
+]
