@@ -3,5 +3,5 @@
 @endphp
 {!! \ConsoleTVs\Charts\Facades\Charts::multiDatabase('bar', 'highcharts')
     ->dataset(__('laralum_shop::statistics.sales'), $orders)->elementLabel(__('laralum_shop::statistics.sales'))
-    ->title(' ')->dimensions(0, 400)->lastByDay(7, true)->render()
+    ->title(__('laralum_shop::statistics.last_sales', ['number' => 7]))->dimensions(0, 400)->lastByDay(7, true)->render()
 !!}
