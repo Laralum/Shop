@@ -3,7 +3,7 @@
 namespace Laralum\Shop\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Laralum\Payments\Models\User as ExtendedUser;
+use Laralum\Users\Models\User as ExtendedUser;
 
 class User extends ExtendedUser
 {
