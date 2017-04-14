@@ -8,12 +8,12 @@ class Category extends Model
 {
     public $table = 'laralum_shop_categories';
     public $fillable = [
-        'name'
+        'name',
     ];
 
-    /**
-     * Return all the category items.
-     */
+     /**
+      * Return all the category items.
+      */
      public function items()
      {
          return $this->hasMany(Item::class);

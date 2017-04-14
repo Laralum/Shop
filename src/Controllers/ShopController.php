@@ -3,44 +3,44 @@
 namespace Laralum\Shop\Controllers;
 
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Laralum\Payments\Models\Settings as PaymentsSettings;
+use Laralum\Settings\Models\Settings as AppSettings;
 use Laralum\Shop\Models\Category;
 use Laralum\Shop\Models\Item;
 use Laralum\Shop\Models\Order;
-use Laralum\Shop\Models\Status;
-use Laralum\Settings\Models\Settings as AppSettings;
-use Laralum\Payments\Models\Settings as PaymentsSettings;
 use Laralum\Shop\Models\Settings;
-use Stripe\Stripe;
-use Stripe\Charge;
-use Laralum\Users\Models\User;
+use Laralum\Shop\Models\Status;
 use Laralum\Shop\Models\User as ShopUser;
 use Laralum\Shop\Notifications\ReciptNotification;
-use Auth;
-
+use Laralum\Users\Models\User;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class ShopController extends Controller
 {
     /**
-     * Set the Stripe API Key and the cart.
-     *
-     * @return void
-     */
+      * Set the Stripe API Key and the cart.
+      *
+      * @return void
+      */
      public function __construct()
      {
          $payments = PaymentsSettings::first();
 
          if (!$payments->ready()) {
-             abort(404, "Payments module is not setup");
+             abort(404, 'Payments module is not setup');
          }
 
          Stripe::setApiKey(decrypt($payments->stripe_secret));
      }
+
     /**
      * Shows all the items (can be filtered by a category).
      *
      * @param int $category
+     *
      * @return \Illuminate\Http\Response
      */
     public function index($category = null)
@@ -53,7 +53,7 @@ class ShopController extends Controller
 
         return view('laralum_shop::shop.index', [
             'category' => $category,
-            'items' => $items
+            'items'    => $items,
         ]);
     }
 
@@ -61,12 +61,13 @@ class ShopController extends Controller
      * Shows the item details.
      *
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function item(Item $item)
     {
         return view('laralum_shop::shop.item', [
-            'item' => $item,
+            'item'     => $item,
             'payments' => PaymentsSettings::first(),
             'settings' => AppSettings::first(),
         ]);
@@ -86,6 +87,7 @@ class ShopController extends Controller
      * Show the order details.
      *
      * @param \Laralum\Shop\Models\Order $order
+     *
      * @return \Illuminate\Http\Response
      */
     public function order(Order $order)
@@ -109,21 +111,22 @@ class ShopController extends Controller
         $tax = bcmul($settings->tax_percentage, $items->sum('price'), 2);
 
         return view('laralum_shop::shop.cart', [
-            'items' => $items,
-            'tax' => $tax,
-            'price' => $price,
-            'totalPrice' => bcadd($tax, $price, 2),
-            'payments' => PaymentsSettings::first(),
+            'items'        => $items,
+            'tax'          => $tax,
+            'price'        => $price,
+            'totalPrice'   => bcadd($tax, $price, 2),
+            'payments'     => PaymentsSettings::first(),
             'app_settings' => AppSettings::first(),
-            'settings' => Settings::first(),
+            'settings'     => Settings::first(),
         ]);
     }
 
     /**
      * Add an item to the cart.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function addItem(Request $request, Item $item)
@@ -134,7 +137,7 @@ class ShopController extends Controller
             }
         }
 
-        $stock = $item->stock ? "|max:$item->stock" : "";
+        $stock = $item->stock ? "|max:$item->stock" : '';
 
         $this->validate($request, [
             'amount' => 'sometimes|required|integer|min:1'.$stock,
@@ -142,7 +145,7 @@ class ShopController extends Controller
 
         $cart = session('laralum_shop_cart', []);
         $added = false;
-        foreach($cart as $key => $c_item) {
+        foreach ($cart as $key => $c_item) {
             if ($c_item['id'] == $item->id) {
                 $added = true;
                 $cart[$key]['amount'] += $request->amount ? $request->amount : 1;
@@ -152,7 +155,7 @@ class ShopController extends Controller
 
         if (!$added) {
             array_push($cart, [
-                'id' => $item->id,
+                'id'     => $item->id,
                 'amount' => $request->amount ? $request->amount : 1,
             ]);
         }
@@ -165,14 +168,15 @@ class ShopController extends Controller
     /**
      * Add an item to the cart.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function removeItem(Request $request, Item $item)
     {
         $cart = session('laralum_shop_cart', []);
-        foreach($cart as $key => $c_item) {
+        foreach ($cart as $key => $c_item) {
             if ($c_item['id'] == $item->id) {
                 unset($cart[$key]);
                 break;
@@ -189,8 +193,9 @@ class ShopController extends Controller
     /**
      * Proccess the payment for the current shopping cart items.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function checkout(Request $request)
@@ -209,28 +214,29 @@ class ShopController extends Controller
         foreach (collect(self::currentItems()) as $item) {
             if ($item['item']->stock && $item['amount'] > $item['item']->stock) {
                 session(['laralum_shop_cart' => []]);
+
                 return redirect()->route('laralum_public::shop.orders')->with('error', __('laralum_shop::shop.stock_error'));
             }
         }
 
         $order = Order::create([
-            'user_id' => Auth::user()->id,
-            'status_id' => Status::findOrFail(1)->id,
+            'user_id'               => Auth::user()->id,
+            'status_id'             => Status::findOrFail(1)->id,
             'tax_percentage_on_buy' => $settings->tax_percentage,
-            'shipping_name' => $request->stripeShippingName,
-            'shipping_adress' => $request->stripeShippingAddressLine1,
-            'shipping_zip' => $request->stripeShippingAddressZip,
-            'shipping_state' => $request->stripeShippingAddressState,
-            'shipping_city' => $request->stripeShippingAddressCity,
-            'shipping_country' => $request->stripeShippingAddressCountry,
+            'shipping_name'         => $request->stripeShippingName,
+            'shipping_adress'       => $request->stripeShippingAddressLine1,
+            'shipping_zip'          => $request->stripeShippingAddressZip,
+            'shipping_state'        => $request->stripeShippingAddressState,
+            'shipping_city'         => $request->stripeShippingAddressCity,
+            'shipping_country'      => $request->stripeShippingAddressCountry,
         ]);
 
-        $order->items()->attach(collect(self::currentItems())->mapWithKeys(function($item) {
+        $order->items()->attach(collect(self::currentItems())->mapWithKeys(function ($item) {
             return [
                 $item['item']->id => [
-                    'units' => $item['amount'],
-                    'item_on_buy' => serialize($item['item']->toArray())
-                ]
+                    'units'       => $item['amount'],
+                    'item_on_buy' => serialize($item['item']->toArray()),
+                ],
             ];
         }));
 
@@ -239,10 +245,10 @@ class ShopController extends Controller
         try {
             if ($order->price() > 0) {
                 Charge::create([
-                    "amount" => $order->totalPrice() * 100,
-                    "currency" => $settings->currency,
-                    "source" => $request->stripeToken,
-                    "description" => "Charge for order: #$order->id",
+                    'amount'      => $order->totalPrice() * 100,
+                    'currency'    => $settings->currency,
+                    'source'      => $request->stripeToken,
+                    'description' => "Charge for order: #$order->id",
                 ]);
             }
             foreach ($order->items as $item) {
@@ -272,12 +278,13 @@ class ShopController extends Controller
      */
     public function currentItems()
     {
-        return collect(session('laralum_shop_cart', []))->map(function($c_item) {
+        return collect(session('laralum_shop_cart', []))->map(function ($c_item) {
             $item = Item::findOrFail($c_item['id']);
+
             return [
-                'item' => $item,
+                'item'   => $item,
                 'amount' => $c_item['amount'],
-                'price' => bcmul($c_item['amount'], $item->price, 2),
+                'price'  => bcmul($c_item['amount'], $item->price, 2),
             ];
         });
     }

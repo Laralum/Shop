@@ -2,9 +2,9 @@
 
 namespace Laralum\Shop\Policies;
 
-use Laralum\Shop\Models\User;
-use Laralum\Shop\Models\Category;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Laralum\Shop\Models\Category;
+use Laralum\Shop\Models\User;
 
 class CategoryPolicy
 {
@@ -26,7 +26,8 @@ class CategoryPolicy
     /**
      * Determine if the current user can access the shop categories.
      *
-     * @param  mixed  $user
+     * @param mixed $user
+     *
      * @return bool
      */
     public function access($user)
@@ -37,7 +38,8 @@ class CategoryPolicy
     /**
      * Determine if the current user can create a shop category.
      *
-     * @param  mixed  $user
+     * @param mixed $user
+     *
      * @return bool
      */
     public function create($user)
@@ -48,8 +50,9 @@ class CategoryPolicy
     /**
      * Determine if the current user can update a shop category.
      *
-     * @param  mixed  $user
-     * @param  mixed  $category
+     * @param mixed $user
+     * @param mixed $category
+     *
      * @return bool
      */
     public function update($user, $category)
@@ -60,8 +63,9 @@ class CategoryPolicy
     /**
      * Determine if the current user can delete a shop category.
      *
-     * @param  mixed  $user
-     * @param  mixed  $category
+     * @param mixed $user
+     * @param mixed $category
+     *
      * @return bool
      */
     public function delete($user, $category)
@@ -72,7 +76,6 @@ class CategoryPolicy
 
         $user = User::findOrFail($user->id);
 
-        return ($user->superAdmin() || $user->hasPermission('laralum::shop.category.delete'));
+        return $user->superAdmin() || $user->hasPermission('laralum::shop.category.delete');
     }
-
 }

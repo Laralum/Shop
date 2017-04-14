@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Laralum\Shop\Models\Status;
 
 class CreateLaralumShopStatus extends Migration
@@ -30,9 +30,9 @@ class CreateLaralumShopStatus extends Migration
                 'Canceled'  => '#F44336',
             ];
 
-            foreach($status as $name => $color) {
+            foreach ($status as $name => $color) {
                 Status::create([
-                    'name' => $name,
+                    'name'  => $name,
                     'color' => $color,
                 ]);
             }

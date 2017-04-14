@@ -4,10 +4,8 @@ namespace Laralum\Shop\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Laralum\Shop\Models\Order;
 use Laralum\Shop\Models\Status;
-use Auth;
 
 class OrdersController extends Controller
 {
@@ -20,8 +18,8 @@ class OrdersController extends Controller
     {
         return view('laralum_shop::order.index', [
             'filtered' => false,
-            'orders' => Order::all(),
-            'status' => Status::all(),
+            'orders'   => Order::all(),
+            'status'   => Status::all(),
         ]);
     }
 
@@ -29,7 +27,8 @@ class OrdersController extends Controller
      * Show all the orders filtered by a status.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $status
+     * @param int                      $status
+     *
      * @return \Illuminate\Http\Response
      */
     public function filter(Request $request, $status = null)
@@ -44,8 +43,8 @@ class OrdersController extends Controller
 
         return view('laralum_shop::order.index', [
             'filtered' => true,
-            'orders' => $orders,
-            'status' => Status::all(),
+            'orders'   => $orders,
+            'status'   => Status::all(),
         ]);
     }
 
@@ -53,6 +52,7 @@ class OrdersController extends Controller
      * Show the order details.
      *
      * @param \Laralum\Shop\Models\Order $order
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Order $order)
@@ -63,8 +63,9 @@ class OrdersController extends Controller
     /**
      * Set the order status.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request   $request
      * @param \Laralum\Shop\Models\Order $order
+     *
      * @return \Illuminate\Http\Response
      */
     public function status(Request $request, Order $order)
@@ -81,5 +82,4 @@ class OrdersController extends Controller
 
         return redirect()->route('laralum::shop.order.show', ['order' => $order->id])->with('success', __('laralum_shop::orders.status_changed'));
     }
-
 }

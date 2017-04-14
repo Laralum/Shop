@@ -4,13 +4,11 @@ namespace Laralum\Shop\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Laralum\Shop\Models\Item;
 use Laralum\Shop\Models\Category;
+use Laralum\Shop\Models\Item;
 
 class ItemsController extends Controller
 {
-
     /**
      * Shows all the items.
      *
@@ -25,6 +23,7 @@ class ItemsController extends Controller
      * Shows all the items in a specific category.
      *
      * @param \Laralum\Shop\Models\Category $category
+     *
      * @return \Illuminate\Http\Response
      */
     public function category(Category $category)
@@ -36,6 +35,7 @@ class ItemsController extends Controller
      * Shows the item details.
      *
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Item $item)
@@ -59,6 +59,7 @@ class ItemsController extends Controller
      * Create an item.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -66,20 +67,20 @@ class ItemsController extends Controller
         $this->authorize('create', Item::class);
 
         $this->validate($request, [
-            'name' => 'required|min:5',
+            'name'        => 'required|min:5',
             'description' => 'required|min:15',
-            'price' => 'required|numeric|min:0',
-            'category' => 'required|exists:laralum_shop_categories,id',
-            'stock' => ($request->stock || $request->stock === "0") ? 'integer' : '',
+            'price'       => 'required|numeric|min:0',
+            'category'    => 'required|exists:laralum_shop_categories,id',
+            'stock'       => ($request->stock || $request->stock === '0') ? 'integer' : '',
         ]);
 
         Item::create([
-            'name' => $request->name,
+            'name'        => $request->name,
             'description' => $request->description,
-            'price' => $request->price,
+            'price'       => $request->price,
             'category_id' => $request->category,
-            'image_url' => $request->image_url ? $request->image_url : null,
-            'stock' => ($request->stock || $request->stock === "0") ? $request->stock : null,
+            'image_url'   => $request->image_url ? $request->image_url : null,
+            'stock'       => ($request->stock || $request->stock === '0') ? $request->stock : null,
         ]);
 
         return redirect()->route('laralum::shop.item.index')->with('success', __('laralum_shop::items.created'));
@@ -89,6 +90,7 @@ class ItemsController extends Controller
      * Shows the update form to update an item.
      *
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Item $item)
@@ -101,29 +103,30 @@ class ItemsController extends Controller
     /**
      * Update a category.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Item $item)
     {
         $this->authorize('update', $item);
 
-        $this->validate($request,   [
-            'name' => 'required|min:5',
+        $this->validate($request, [
+            'name'        => 'required|min:5',
             'description' => 'required|min:15',
-            'price' => 'required|numeric|min:0',
-            'category' => 'required|exists:laralum_shop_categories,id',
-            'stock' => ($request->stock || $request->stock === "0") ? 'integer' : '',
+            'price'       => 'required|numeric|min:0',
+            'category'    => 'required|exists:laralum_shop_categories,id',
+            'stock'       => ($request->stock || $request->stock === '0') ? 'integer' : '',
         ]);
 
         $item->update([
-            'name' => $request->name,
+            'name'        => $request->name,
             'description' => $request->description,
-            'price' => $request->price,
+            'price'       => $request->price,
             'category_id' => $request->category,
-            'image_url' => $request->image_url ? $request->image_url : null,
-            'stock' => ($request->stock || $request->stock === "0") ? $request->stock : null,
+            'image_url'   => $request->image_url ? $request->image_url : null,
+            'stock'       => ($request->stock || $request->stock === '0') ? $request->stock : null,
         ]);
 
         return redirect()->route('laralum::shop.item.index')->with('success', __('laralum_shop::items.updated'));
@@ -133,6 +136,7 @@ class ItemsController extends Controller
      * Show the delete confirmation page to delete an item.
      *
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function confirmDelete(Item $item)
@@ -148,8 +152,9 @@ class ItemsController extends Controller
     /**
      * Delete an item.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Item $item)

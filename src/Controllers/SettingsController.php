@@ -36,5 +36,4 @@ class SettingsController extends Controller
 
         return redirect()->route('laralum::settings.index', ['p' => 'Shop'])->with('success', __('laralum_shop::settings.updated'));
     }
-
 }
