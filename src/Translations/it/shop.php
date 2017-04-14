@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'buy_success'       => 'Your order #:id was created',
-    'buy_error'         => 'There was an error processing your order',
-    'stock_error'       => "There isn't enough stock for one of the selected items",
+    'buy_success' => 'Il tuo ordine #:id è stato creato',
+    'buy_error' => "C'è stato un errore l'elaborazione del tuo ordine",
+    'stock_error' => "Non c'è abbastanza azione per uno degli elementi selezionati",
 ];

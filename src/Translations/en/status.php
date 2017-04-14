@@ -7,6 +7,7 @@ return [
     | Shop Status Language Lines
     |--------------------------------------------------------------------------
     */
+
     'title'             => 'Status List',
     'subtitle'          => 'View and manage the order status',
     'create'            => 'Create Status',

@@ -7,6 +7,7 @@ return [
     | Shop Item Language Lines
     |--------------------------------------------------------------------------
     */
+
     'title'             => 'Shop Items',
     'subtitle'          => 'View and manage all the shop items',
     'item_list'         => 'Item List',

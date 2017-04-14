@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'home'              => 'Home',
-    'markdown_accepted' => "You're free to use markdown in the item description",
-    'emergency_on'      => "The shop is currently unavailable, please come back later",
+    'home' => 'Inicio',
+    'markdown_accepted' => 'Usted es libre de usar markdown en la descripción del artículo',
+    'emergency_on' => 'La tienda no está disponible actualmente, por favor vuelva más tarde',
 ];
