@@ -8,12 +8,12 @@ class Item extends Model
 {
     public $table = 'laralum_shop_items';
     public $fillable = [
-        'name', 'description', 'price', 'stock', 'category_id', 'image_url'
+        'name', 'description', 'price', 'stock', 'category_id', 'image_url',
     ];
 
-    /**
-     * Return the item category.
-     */
+     /**
+      * Return the item category.
+      */
      public function category()
      {
          return $this->belongsTo(Category::class);
@@ -40,7 +40,9 @@ class Item extends Model
       */
      public function earnings()
      {
-         return $this->orders->where('status_id', Settings::first()->paid_status)->map(function($order) { return $order->totalPrice(); })->sum();
+         return $this->orders->where('status_id', Settings::first()->paid_status)->map(function ($order) {
+             return $order->totalPrice();
+         })->sum();
      }
 
      /**
@@ -51,15 +53,16 @@ class Item extends Model
          return $this->stock !== 0;
      }
 
-     public function showStock()
-     {
-         if (self::available()) {
-             if ($this->stock) {
-                 return __('laralum_shop::items.x_available', ['x' => $this->stock]);
-             }
-             return __('laralum_shop::items.available');
-         }
+    public function showStock()
+    {
+        if (self::available()) {
+            if ($this->stock) {
+                return __('laralum_shop::items.x_available', ['x' => $this->stock]);
+            }
 
-         return __('laralum_shop::items.out_of_stock');
-     }
+            return __('laralum_shop::items.available');
+        }
+
+        return __('laralum_shop::items.out_of_stock');
+    }
 }

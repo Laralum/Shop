@@ -55,6 +55,7 @@ class CategoriesController extends Controller
      * Shows the update form to update a category.
      *
      * @param \Laralum\Shop\Models\Category $category
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
@@ -68,6 +69,7 @@ class CategoriesController extends Controller
      * Update a category.
      *
      * @param \Laralum\Shop\Models\Category $category
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
@@ -92,6 +94,7 @@ class CategoriesController extends Controller
      * Show the delete confirmation page to delete an item.
      *
      * @param \Laralum\Shop\Models\Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function confirmDelete(Category $category)
@@ -108,13 +111,14 @@ class CategoriesController extends Controller
      * Delete a category.
      *
      * @param \Laralum\Shop\Models\Category $category
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Category $category)
     {
         $this->authorize('delete', $category);
 
-        $category->items->each(function($item) {
+        $category->items->each(function ($item) {
             $item->update(['category_id' => Category::first()->id]);
         });
 

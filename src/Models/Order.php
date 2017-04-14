@@ -3,14 +3,13 @@
 namespace Laralum\Shop\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Laralum\Shop\Models\Settings;
 
 class Order extends Model
 {
     public $table = 'laralum_shop_orders';
     public $fillable = [
         'status_id', 'user_id', 'shipping_name', 'tax_percentage_on_buy',
-        'shipping_adress', 'shipping_zip', 'shipping_state', 'shipping_city', 'shipping_country'
+        'shipping_adress', 'shipping_zip', 'shipping_state', 'shipping_city', 'shipping_country',
     ];
 
     /**
@@ -42,7 +41,7 @@ class Order extends Model
      */
     public function price()
     {
-        return number_format(collect($this->items)->map(function($item) {
+        return number_format(collect($this->items)->map(function ($item) {
             return bcmul($item->pivot->units, unserialize($item->pivot->item_on_buy)['price'], 2);
         })->sum(), 2);
     }
@@ -52,7 +51,7 @@ class Order extends Model
      */
     public function units()
     {
-        return collect($this->items)->map(function($item) {
+        return collect($this->items)->map(function ($item) {
             return $item->pivot->units;
         })->sum();
     }

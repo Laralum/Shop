@@ -2,9 +2,8 @@
 
 namespace Laralum\Shop\Policies;
 
-use Laralum\Shop\Models\User;
-use Laralum\Shop\Models\Category;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Laralum\Shop\Models\User;
 
 class ItemPolicy
 {
@@ -26,8 +25,9 @@ class ItemPolicy
     /**
      * Determine if the current user can access the shop items.
      *
-     * @param  mixed  $user
-     * @param  mixed  $item
+     * @param mixed $user
+     * @param mixed $item
+     *
      * @return bool
      */
     public function access($user)
@@ -38,8 +38,9 @@ class ItemPolicy
     /**
      * Determine if the current user can create a shop item.
      *
-     * @param  mixed  $user
-     * @param  mixed  $item
+     * @param mixed $user
+     * @param mixed $item
+     *
      * @return bool
      */
     public function create($user)
@@ -50,8 +51,9 @@ class ItemPolicy
     /**
      * Determine if the current user can update a shop item.
      *
-     * @param  mixed  $user
-     * @param  mixed  $item
+     * @param mixed $user
+     * @param mixed $item
+     *
      * @return bool
      */
     public function update($user, $item)
@@ -62,13 +64,13 @@ class ItemPolicy
     /**
      * Determine if the current user can delete a shop item.
      *
-     * @param  mixed  $user
-     * @param  mixed  $item
+     * @param mixed $user
+     * @param mixed $item
+     *
      * @return bool
      */
     public function delete($user, $item)
     {
         return User::findOrFail($user->id)->hasPermission('laralum::shop.item.delete');
     }
-
 }

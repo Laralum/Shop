@@ -2,8 +2,8 @@
 
 namespace Laralum\Shop\Policies;
 
-use Laralum\Shop\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Laralum\Shop\Models\User;
 
 class OrderPolicy
 {
@@ -25,8 +25,9 @@ class OrderPolicy
     /**
      * Determine if the current user can view the order.
      *
-     * @param  mixed  $user
-     * @param  mixed  $order
+     * @param mixed $user
+     * @param mixed $order
+     *
      * @return bool
      */
     public function access($user)
@@ -37,8 +38,9 @@ class OrderPolicy
     /**
      * Determine if the current user can change the order status.
      *
-     * @param  mixed  $user
-     * @param  mixed  $order
+     * @param mixed $user
+     * @param mixed $order
+     *
      * @return bool
      */
     public function status($user, $order)
@@ -49,8 +51,9 @@ class OrderPolicy
     /**
      * Determine if the current user can view the order.
      *
-     * @param  mixed  $user
-     * @param  mixed  $order
+     * @param mixed $user
+     * @param mixed $order
+     *
      * @return bool
      */
     public function publicView($user, $order)
@@ -61,5 +64,4 @@ class OrderPolicy
 
         return true;
     }
-
 }

@@ -35,6 +35,7 @@ class StatusController extends Controller
      * Create a status.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,12 +43,12 @@ class StatusController extends Controller
         $this->authorize('create', Status::class);
 
         $this->validate($request, [
-            'name' => 'required|unique:laralum_shop_status,name',
+            'name'  => 'required|unique:laralum_shop_status,name',
             'color' => 'required',
         ]);
 
         Status::create([
-            'name' => $request->name,
+            'name'  => $request->name,
             'color' => $request->color,
         ]);
 
@@ -58,6 +59,7 @@ class StatusController extends Controller
      * Shows the update form to update a status.
      *
      * @param \Laralum\Shop\Models\Status $status
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Status $status)
@@ -70,8 +72,9 @@ class StatusController extends Controller
     /**
      * Update a status.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request    $request
      * @param \Laralum\Shop\Models\Status $status
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Status $status)
@@ -87,7 +90,7 @@ class StatusController extends Controller
         ]);
 
         $status->update([
-            'name' => $request->name,
+            'name'  => $request->name,
             'color' => $request->color,
         ]);
 
@@ -98,6 +101,7 @@ class StatusController extends Controller
      * Show the delete confirmation page to delete a status.
      *
      * @param \Laralum\Shop\Models\Item $status
+     *
      * @return \Illuminate\Http\Response
      */
     public function confirmDelete(Status $status)
@@ -113,15 +117,16 @@ class StatusController extends Controller
     /**
      * Delete a status.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request    $request
      * @param \Laralum\Shop\Models\Status $status
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Status $status)
     {
         $this->authorize('delete', $status);
 
-        $status->orders->each(function($order) {
+        $status->orders->each(function ($order) {
             $order->update(['status_id' => 0]);
         });
 

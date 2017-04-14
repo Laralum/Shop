@@ -2,21 +2,19 @@
 
 namespace Laralum\Shop;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-
-use Laralum\Shop\Models\Category;
-use Laralum\Shop\Policies\CategoryPolicy;
-use Laralum\Shop\Models\Item;
-use Laralum\Shop\Policies\ItemPolicy;
-use Laralum\Shop\Models\Order;
-use Laralum\Shop\Policies\OrderPolicy;
-use Laralum\Shop\Models\Status;
-use Laralum\Shop\Policies\StatusPolicy;
-use Laralum\Shop\Models\Settings;
-use Laralum\Shop\Policies\SettingsPolicy;
-
+use Illuminate\Support\ServiceProvider;
 use Laralum\Permissions\PermissionsChecker;
+use Laralum\Shop\Models\Category;
+use Laralum\Shop\Models\Item;
+use Laralum\Shop\Models\Order;
+use Laralum\Shop\Models\Settings;
+use Laralum\Shop\Models\Status;
+use Laralum\Shop\Policies\CategoryPolicy;
+use Laralum\Shop\Policies\ItemPolicy;
+use Laralum\Shop\Policies\OrderPolicy;
+use Laralum\Shop\Policies\SettingsPolicy;
+use Laralum\Shop\Policies\StatusPolicy;
 
 class ShopServiceProvider extends ServiceProvider
 {
@@ -27,9 +25,9 @@ class ShopServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Category::class => CategoryPolicy::class,
-        Item::class => ItemPolicy::class,
-        Order::class => OrderPolicy::class,
-        Status::class => StatusPolicy::class,
+        Item::class     => ItemPolicy::class,
+        Order::class    => OrderPolicy::class,
+        Status::class   => StatusPolicy::class,
         Settings::class => SettingsPolicy::class,
     ];
 
@@ -42,42 +40,42 @@ class ShopServiceProvider extends ServiceProvider
         [
             'name' => 'Shop Categories Access',
             'slug' => 'laralum::shop.category.access',
-            'desc' => "Grants access to shop categories",
+            'desc' => 'Grants access to shop categories',
         ],
         [
             'name' => 'Create Shop Categories',
             'slug' => 'laralum::shop.category.create',
-            'desc' => "Allows creating shop categories",
+            'desc' => 'Allows creating shop categories',
         ],
         [
             'name' => 'Edit Shop Categories',
             'slug' => 'laralum::shop.category.update',
-            'desc' => "Allows editing shop categories",
+            'desc' => 'Allows editing shop categories',
         ],
         [
             'name' => 'Delete Shop Categories',
             'slug' => 'laralum::shop.category.delete',
-            'desc' => "Allows deleting shop categories",
+            'desc' => 'Allows deleting shop categories',
         ],
         [
             'name' => 'Shop Items Access',
             'slug' => 'laralum::shop.item.access',
-            'desc' => "Grants access to shop items",
+            'desc' => 'Grants access to shop items',
         ],
         [
             'name' => 'Create Shop Items',
             'slug' => 'laralum::shop.item.create',
-            'desc' => "Allows creating shop items",
+            'desc' => 'Allows creating shop items',
         ],
         [
             'name' => 'Edit Shop Items',
             'slug' => 'laralum::shop.item.update',
-            'desc' => "Allows editing shop items",
+            'desc' => 'Allows editing shop items',
         ],
         [
             'name' => 'Delete Shop Items',
             'slug' => 'laralum::shop.item.delete',
-            'desc' => "Allows deleting shop items",
+            'desc' => 'Allows deleting shop items',
         ],
         [
             'name' => 'View Shop Orders',
@@ -92,28 +90,28 @@ class ShopServiceProvider extends ServiceProvider
         [
             'name' => 'Shop Status Access',
             'slug' => 'laralum::shop.status.access',
-            'desc' => "Grants access to shop status",
+            'desc' => 'Grants access to shop status',
         ],
         [
             'name' => 'Create Shop Status',
             'slug' => 'laralum::shop.status.create',
-            'desc' => "Allows creating shop status",
+            'desc' => 'Allows creating shop status',
         ],
         [
             'name' => 'Edit Shop Status',
             'slug' => 'laralum::shop.status.update',
-            'desc' => "Allows editing shop status",
+            'desc' => 'Allows editing shop status',
         ],
         [
             'name' => 'Delete Shop Status',
             'slug' => 'laralum::shop.status.delete',
-            'desc' => "Allows deleting shop status",
+            'desc' => 'Allows deleting shop status',
         ],
         [
             'name' => 'Shop Settings',
             'slug' => 'laralum::shop.settings',
-            'desc' => "Allows edititing the shop settings",
-        ]
+            'desc' => 'Allows edititing the shop settings',
+        ],
     ];
 
     /**
@@ -144,7 +142,7 @@ class ShopServiceProvider extends ServiceProvider
     }
 
     /**
-     * I cheated this comes from the AuthServiceProvider extended by the App\Providers\AuthServiceProvider
+     * I cheated this comes from the AuthServiceProvider extended by the App\Providers\AuthServiceProvider.
      *
      * Register the application's policies.
      *

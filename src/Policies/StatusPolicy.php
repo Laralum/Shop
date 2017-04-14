@@ -2,10 +2,10 @@
 
 namespace Laralum\Shop\Policies;
 
-use Laralum\Shop\Models\User;
-use Laralum\Shop\Models\Status;
-use Laralum\Shop\Models\Settings;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Laralum\Shop\Models\Settings;
+use Laralum\Shop\Models\Status;
+use Laralum\Shop\Models\User;
 
 class StatusPolicy
 {
@@ -27,7 +27,8 @@ class StatusPolicy
     /**
      * Determine if the current user can access the shop categories.
      *
-     * @param  mixed  $user
+     * @param mixed $user
+     *
      * @return bool
      */
     public function access($user)
@@ -38,7 +39,8 @@ class StatusPolicy
     /**
      * Determine if the current user can create a shop category.
      *
-     * @param  mixed  $user
+     * @param mixed $user
+     *
      * @return bool
      */
     public function create($user)
@@ -49,8 +51,9 @@ class StatusPolicy
     /**
      * Determine if the current user can update a shop status.
      *
-     * @param  mixed  $user
-     * @param  mixed  $status
+     * @param mixed $user
+     * @param mixed $status
+     *
      * @return bool
      */
     public function update($user, $status)
@@ -61,8 +64,9 @@ class StatusPolicy
     /**
      * Determine if the current user can delete a shop status.
      *
-     * @param  mixed  $user
-     * @param  mixed  $status
+     * @param mixed $user
+     * @param mixed $status
+     *
      * @return bool
      */
     public function delete($user, $status)
@@ -75,7 +79,6 @@ class StatusPolicy
 
         $user = User::findOrFail($user->id);
 
-        return ($user->superAdmin() || $user->hasPermission('laralum::shop.status.delete'));
+        return $user->superAdmin() || $user->hasPermission('laralum::shop.status.delete');
     }
-
 }

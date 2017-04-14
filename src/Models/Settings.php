@@ -33,6 +33,6 @@ class Settings extends Model
      */
     public function currencies()
     {
-        return json_decode(file_get_contents(__DIR__ . "/../Currencies.json"), true);
+        return json_decode(file_get_contents(__DIR__.'/../Currencies.json'), true);
     }
 }

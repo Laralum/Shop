@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'home' => 'Accueil',
+    'home'              => 'Accueil',
     'markdown_accepted' => "Vous êtes libre d'utiliser le marquage dans la description de l'article",
-    'emergency_on' => 'Le magasin est actuellement indisponible, reviens plus tard',
+    'emergency_on'      => 'Le magasin est actuellement indisponible, reviens plus tard',
 ];

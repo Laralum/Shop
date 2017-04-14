@@ -4,11 +4,9 @@ namespace Laralum\Shop\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Laralum\Shop\Models\Order;
 use Laralum\Shop\Models\Item;
+use Laralum\Shop\Models\Order;
 use Laralum\Shop\Models\Settings;
-use Auth;
 
 class StatisticsController extends Controller
 {
@@ -25,7 +23,9 @@ class StatisticsController extends Controller
         $statistics = [
             'items'             => Item::all(),
             'orders'            => $orders,
-            'earnings'          => $orders->map(function ($order){ return $order->totalPrice(); })->sum(),
+            'earnings'          => $orders->map(function ($order) {
+                return $order->totalPrice();
+            })->sum(),
             'last_earnings'     => static::lastEarningsByDay($number),
             'last_orders'       => Order::whereDate('created_at', '>', date('Y-m-d', strtotime('-'.$number.' days')))->where('status_id', Settings::first()->paid_status)->get(),
         ];
@@ -49,7 +49,9 @@ class StatisticsController extends Controller
         $statistics = [
             'items'             => Item::all(),
             'orders'            => $orders,
-            'earnings'          => $orders->map(function ($order){ return $order->totalPrice(); })->sum(),
+            'earnings'          => $orders->map(function ($order) {
+                return $order->totalPrice();
+            })->sum(),
             'last_earnings'     => static::lastEarningsByDay($number),
             'last_orders'       => Order::whereDate('created_at', '>', date('Y-m-d', strtotime('-'.$number.' days')))->where('status_id', Settings::first()->paid_status)->get(),
         ];
@@ -61,18 +63,18 @@ class StatisticsController extends Controller
      * Return the latest earnings by day.
      *
      * @param int $d
+     *
      * @return \Illuminate\Http\Response
      */
     public static function lastEarningsByDay($d = 7)
     {
         for ($days = []; count($days) < $d; array_push($days, (date('Y-m-d', strtotime('-'.count($days).' days')))));
 
-        return collect($days)->reverse()->mapWithKeys(function($date){
+        return collect($days)->reverse()->mapWithKeys(function ($date) {
             return [$date => Order::whereDate('created_at', '=', date('Y-m-d', strtotime($date)))
-                ->where('status_id', Settings::first()->paid_status)->get()->map(function($order){
+                ->where('status_id', Settings::first()->paid_status)->get()->map(function ($order) {
                     return $order->totalPrice();
-            })->sum()];
+                })->sum(), ];
         });
     }
-
 }
