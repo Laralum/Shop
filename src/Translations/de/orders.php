@@ -22,7 +22,7 @@ return [
     'show' => 'Details',
     'creation_date' => 'Erstellungsdatum',
     'updated_date' => 'Neuestes Update',
-    'price_exp' => 'Gekauft haben :units für <span class='money'>:price</span> jeder, mit insgesamt: <b class='money'>:total</b>',
+    'price_exp' => "Gekauft haben :units einheiten für <span class='money'>:price</span> jeder, mit insgesamt: <b class='money'>:total</b>",
     'show_title' => 'Bestellen #:id',
     'show_subtitle' => 'Sehen Sie die Bestellung #:id Details',
     'order_details' => 'Bestelldetails',
