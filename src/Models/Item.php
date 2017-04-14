@@ -8,7 +8,7 @@ class Item extends Model
 {
     public $table = 'laralum_shop_items';
     public $fillable = [
-        'name', 'description', 'price', 'stock', 'category_id'
+        'name', 'description', 'price', 'stock', 'category_id', 'image_url'
     ];
 
     /**

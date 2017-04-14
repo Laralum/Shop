@@ -31,6 +31,8 @@ return [
     'updated_date'      => 'Latest Update',
     'sales'             => 'Sales',
     'earnings'          => 'Earnings',
+    'image_url'         => 'Image URL',
+    'image_url_ph'      => 'Paste an image URL to represent the item',
 
     'created'           => 'Item Created',
     'updated'           => 'Item Updated',

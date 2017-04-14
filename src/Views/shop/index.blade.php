@@ -24,6 +24,11 @@ $items - It stores all the items (may be filtered depending if a category has be
             Price: <b class="money">{{ $item->price }}</b>
             Stock: <b>{{ $item->showStock() }}</b>
         </p>
+        @if ($item->image_url)
+            <p>
+                <img src="{{ $item->image_url }}" height="500" />
+            </p>
+        @endif
         <p>{{ $item->description }}</p>
         <a href="{{ route('laralum_public::shop.item', ['item' => $item->id]) }}">View More</a>
     @endforeach

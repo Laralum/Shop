@@ -26,6 +26,11 @@ $settings - It stores the application settings of the laralum settings module.
         Price: <b class="money">{{ $item->price }}</b>
         Stock: <b>{{ $item->showStock() }}</b>
     </p>
+    @if ($item->image_url)
+        <p>
+            <img src="{{ $item->image_url }}" height="500" />
+        </p>
+    @endif
     <p>{{ $item->description }}</p>
     <p>
         @if($item->available())

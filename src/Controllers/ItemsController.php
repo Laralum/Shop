@@ -78,6 +78,7 @@ class ItemsController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category,
+            'image_url' => $request->image_url ? $request->image_url : null,
             'stock' => ($request->stock || $request->stock === "0") ? $request->stock : null,
         ]);
 
@@ -121,6 +122,7 @@ class ItemsController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category,
+            'image_url' => $request->image_url ? $request->image_url : null,
             'stock' => ($request->stock || $request->stock === "0") ? $request->stock : null,
         ]);
 

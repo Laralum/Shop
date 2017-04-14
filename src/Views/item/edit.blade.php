@@ -53,6 +53,12 @@
                                         </div>
                                     </div>
                                     <div class="uk-width-1-1">
+                                        <label class="uk-form-label">@lang('laralum_shop::items.image_url')</label>
+                                        <div class="uk-form-controls">
+                                            <input required value="{{ old('image_url', $item->image_url) }}" name="image_url" class="uk-input" type="text" placeholder="@lang('laralum_shop::items.image_url_ph')">
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-1">
                                         <label class="uk-form-label">@lang('laralum_shop::items.description')</label>
                                         <div class="uk-form-controls">
                                             <textarea required name="description" rows="10" class="uk-textarea" placeholder="@lang('laralum_shop::items.description_ph')">{{ old('description', $item->description) }}</textarea>

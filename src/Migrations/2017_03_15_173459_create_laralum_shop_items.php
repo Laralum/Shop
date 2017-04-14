@@ -21,6 +21,7 @@ class CreateLaralumShopItems extends Migration
                 $table->decimal('price', 7, 2);
                 $table->integer('stock')->nullable();
                 $table->integer('category_id');
+                $table->string('image_url')->nullable();
                 $table->timestamps();
             });
         }
