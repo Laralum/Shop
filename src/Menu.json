@@ -1,34 +1,42 @@
 {
     "items": [
         {
+            "permission": "laralum::shop.statistics",
             "trans": "laralum_shop::statistics.title",
             "route": "laralum::shop.index"
         },
         {
+            "permission": "laralum::shop.item.access",
             "trans": "laralum_shop::items.title",
             "route": "laralum::shop.item.index"
         },
         {
+            "permission": "laralum::shop.item.create",
             "trans": "laralum_shop::items.create",
             "route": "laralum::shop.item.create"
         },
         {
+            "permission": "laralum::shop.category.access",
             "trans": "laralum_shop::categories.title",
             "route": "laralum::shop.category.index"
         },
         {
+            "permission": "laralum::shop.category.create",
             "trans": "laralum_shop::categories.create",
             "route": "laralum::shop.category.create"
         },
         {
+            "permission": "laralum::shop.order.access",
             "trans": "laralum_shop::orders.title",
             "route": "laralum::shop.order.index"
         },
         {
+            "permission": "laralum::shop.status.access",
             "trans": "laralum_shop::status.title",
             "route": "laralum::shop.status.index"
         },
         {
+            "permission": "laralum::shop.status.create",
             "trans": "laralum_shop::status.create",
             "route": "laralum::shop.status.create"
         }
