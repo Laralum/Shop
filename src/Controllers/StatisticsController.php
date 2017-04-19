@@ -4,11 +4,11 @@ namespace Laralum\Shop\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laralum\Shop\Models\Item;
 use Laralum\Shop\Models\Order;
-use Laralum\Users\Models\User;
 use Laralum\Shop\Models\Settings;
-use Illuminate\Support\Facades\Auth;
+use Laralum\Users\Models\User;
 
 class StatisticsController extends Controller
 {
@@ -20,8 +20,8 @@ class StatisticsController extends Controller
     public function index()
     {
         $user = User::findOrFail(Auth::id());
-        if (! ($user->superAdmin() || $user->hasPermission('laralum::shop.statistics')) ) {
-            abort(403, "This action is unauthorized");
+        if (!($user->superAdmin() || $user->hasPermission('laralum::shop.statistics'))) {
+            abort(403, 'This action is unauthorized');
         }
         $orders = Order::where('status_id', Settings::first()->paid_status)->get();
         $number = 7;
@@ -47,8 +47,8 @@ class StatisticsController extends Controller
     public function filter(Request $request, $number = 7)
     {
         $user = User::findOrFail(Auth::id());
-        if (! ($user->superAdmin() || $user->hasPermission('laralum::shop.statistics')) ) {
-            abort(403, "This action is unauthorized");
+        if (!($user->superAdmin() || $user->hasPermission('laralum::shop.statistics'))) {
+            abort(403, 'This action is unauthorized');
         }
         $orders = Order::where('status_id', Settings::first()->paid_status)->get();
 

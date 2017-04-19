@@ -3,8 +3,8 @@
 namespace Laralum\Shop\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laralum\Payments\Models\Settings as PaymentsSettings;
 use Laralum\Settings\Models\Settings as AppSettings;
 use Laralum\Shop\Models\Category;
