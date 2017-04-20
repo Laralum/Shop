@@ -2,10 +2,10 @@
     "name": "laralum/shop",
     "description": "Shop module for laralum",
     "require": {
-		"laralum/laralum": "dev-master",
-        "laralum/payments": "dev-master",
-        "laralum/PDF": "dev-master"
-	},
+	"laralum/laralum": "1.*",
+        "laralum/payments": "1.*",
+        "laralum/PDF": "1.*"
+    },
     "license": "MIT",
     "authors": [
         {
