@@ -112,6 +112,11 @@ class ShopServiceProvider extends ServiceProvider
             'slug' => 'laralum::shop.settings',
             'desc' => 'Allows edititing the shop settings',
         ],
+        [
+            'name' => 'Shop Statistics',
+            'slug' => 'laralum::shop.statistics',
+            'desc' => 'Allows viewing shop statistics',
+        ],
     ];
 
     /**
