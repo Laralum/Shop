@@ -32,7 +32,7 @@ class Item extends Model
       */
      public function sales()
      {
-         return $this->orders()->where('status_id', 2)->get()->count();
+         return $this->orders()->where('status_id', Settings::first()->paid_status)->get()->count();
      }
 
      /**
