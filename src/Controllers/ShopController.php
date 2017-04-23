@@ -15,8 +15,7 @@ use Laralum\Shop\Models\Status;
 use Laralum\Shop\Models\User as ShopUser;
 use Laralum\Shop\Notifications\ReciptNotification;
 use Laralum\Users\Models\User;
-use Stripe\Charge;
-use Stripe\Stripe;
+use Laralum\Payments\Payment;
 
 class ShopController extends Controller
 {
@@ -27,13 +26,9 @@ class ShopController extends Controller
       */
      public function __construct()
      {
-         $payments = PaymentsSettings::first();
-
-         if (!$payments->ready()) {
+         if (!PaymentsSettings::first()->ready()) {
              abort(404, 'Payments module is not setup');
          }
-
-         Stripe::setApiKey(decrypt($payments->stripe_secret));
      }
 
     /**
@@ -242,22 +237,22 @@ class ShopController extends Controller
 
         User::findOrFail(Auth::id())->notify(new ReciptNotification($order));
 
-        try {
-            if ($order->price() > 0) {
-                Charge::create([
-                    'amount'      => $order->totalPrice() * 100,
-                    'currency'    => $settings->currency,
-                    'source'      => $request->stripeToken,
-                    'description' => "Charge for order: #$order->id",
-                ]);
+        if ($order->price() > 0) {
+            $payment = new Payment;
+            $payment->ammount($order->totalPrice() * 100)
+                    ->currency($settings->currency)
+                    ->source($request->stripeToken)
+                    ->description("#$order->id")
+                    ->pay();
+            if (!$payment) {
+                return redirect()->route('laralum_public::shop.orders')->with('error', __('laralum_shop::shop.buy_error'));
             }
-            foreach ($order->items as $item) {
-                if ($item->stock) {
-                    $item->update(['stock' => $item->stock - $item->pivot->units]);
-                }
+        }
+
+        foreach ($order->items as $item) {
+            if ($item->stock) {
+                $item->update(['stock' => $item->stock - $item->pivot->units]);
             }
-        } catch (Exception $e) {
-            return redirect()->route('laralum_public::shop.orders')->with('error', __('laralum_shop::shop.buy_error'));
         }
 
         $order->update([
