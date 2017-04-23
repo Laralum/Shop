@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laralum\Payments\Models\Settings as PaymentsSettings;
+use Laralum\Payments\Payment;
 use Laralum\Settings\Models\Settings as AppSettings;
 use Laralum\Shop\Models\Category;
 use Laralum\Shop\Models\Item;
@@ -15,7 +16,6 @@ use Laralum\Shop\Models\Status;
 use Laralum\Shop\Models\User as ShopUser;
 use Laralum\Shop\Notifications\ReciptNotification;
 use Laralum\Users\Models\User;
-use Laralum\Payments\Payment;
 
 class ShopController extends Controller
 {
@@ -238,7 +238,7 @@ class ShopController extends Controller
         User::findOrFail(Auth::id())->notify(new ReciptNotification($order));
 
         if ($order->price() > 0) {
-            $payment = new Payment;
+            $payment = new Payment();
             $payment->ammount($order->totalPrice() * 100)
                     ->currency($settings->currency)
                     ->source($request->stripeToken)
