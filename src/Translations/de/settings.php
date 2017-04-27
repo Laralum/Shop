@@ -20,6 +20,6 @@ return [
     'emergency'         => 'Notfallmodus',
     'emergency_hp'      => 'Der Notfallmodus verhindert, dass neue Zahlungen verarbeitet werden',
     'updated'           => 'Die Shop-Einstellungen wurden aktualisiert',
-    'save'              => 'Laden Sie die Shopeinstellungen',
+    'save'              => 'Speichern Sie die Shopeinstellungen',
     'enabled'           => 'Aktiviert',
 ];
