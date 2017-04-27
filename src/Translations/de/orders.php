@@ -18,7 +18,7 @@ return [
     'items'           => 'Artikel',
     'units'           => 'Einheiten',
     'options'         => 'Optionen',
-    'earnings'        => 'Verdienste',
+    'earnings'        => 'Einnahmen',
     'show'            => 'Details',
     'creation_date'   => 'Erstellungsdatum',
     'updated_date'    => 'Neuestes Update',

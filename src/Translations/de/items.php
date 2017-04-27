@@ -31,7 +31,7 @@ return [
     'creation_date'   => 'Erstellungsdatum',
     'updated_date'    => 'Neuestes Update',
     'sales'           => 'Umsatz',
-    'earnings'        => 'Verdienste',
+    'earnings'        => 'Einnahmen',
     'image_url'       => 'Bild URL',
     'image_url_ph'    => 'Fügen Sie eine Bild-URL ein, um das Element darzustellen',
     'created'         => 'Artikel erstellt',
