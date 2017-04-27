@@ -9,6 +9,6 @@ return [
     */
 
     'home'              => 'Zuhause',
-    'markdown_accepted' => 'Sie können die Markierung in der Artikelbeschreibung verwenden',
-    'emergency_on'      => 'Der Laden ist derzeit nicht verfügbar, bitte komm später wieder',
+    'markdown_accepted' => 'Sie können die Markdown-Syntax in der Artikelbeschreibung verwenden',
+    'emergency_on'      => 'Der Shop ist derzeit nicht verfügbar, bitte komm später wieder',
 ];
