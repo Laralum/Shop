@@ -86,13 +86,13 @@
                     <div class="uk-container uk-text-center">
                         <h3>
                             <span class="ion-minus-circled"></span>
-                            @lang('laralum_shop::settings.unauthorized_action')
+                            @lang('laralum_shop::general.unauthorized_action')
                         </h3>
                         <p>
-                            @lang('laralum_shop::settings.unauthorized_desc')
+                            @lang('laralum_shop::general.unauthorized_desc')
                         </p>
                         <p class="uk-text-meta">
-                            @lang('laralum_shop::settings.contact_webmaster')
+                            @lang('laralum_shop::general.contact_webmaster')
                         </p>
                     </div>
                 </div>
