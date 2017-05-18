@@ -20,18 +20,6 @@ use Laralum\Users\Models\User;
 class ShopController extends Controller
 {
     /**
-      * Set the Stripe API Key and the cart.
-      *
-      * @return void
-      */
-     public function __construct()
-     {
-         if (!PaymentsSettings::first()->ready()) {
-             abort(404, 'Payments module is not setup');
-         }
-     }
-
-    /**
      * Shows all the items (can be filtered by a category).
      *
      * @param int $category

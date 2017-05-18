@@ -61,7 +61,7 @@ $settings - It stores the shop settings.
                 Total to pay: <span class="money">{{ $tax/100 }}</span> + <span class="money">{{ $price/100 }}</span> = <b class="money">{{ $totalPrice/100 }}</b>
             </p>
             @if(Auth::check())
-                @if(!$settings->emergency)
+                @if(!$settings->emergency and $payments->ready())
                     <form action="{{ route('laralum_public::shop.cart.checkout') }}" method="POST">
                         {{ csrf_field() }}
                         <script
@@ -81,6 +81,10 @@ $settings - It stores the shop settings.
                 @else
                     <p>
                         @lang('laralum_shop::general.emergency_on');
+                        @if (!$payments->ready())
+                            <br />
+                            The payments package is not setup.
+                        @endif
                     </p>
                 @endif
             @else
